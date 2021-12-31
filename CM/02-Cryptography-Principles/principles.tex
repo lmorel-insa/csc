@@ -1,0 +1,343 @@
+\documentclass[
+hyperref={pdfpagelabels=false}
+%,red %, notes=show
+,xcolor=table
+% ,handout % UNCOMMENT FOR HANDOUT - also uncomment \pgfpagesuselayout
+]
+{beamer}
+
+%\usecolortheme{beaver}
+
+
+\setlength {\marginparwidth }{2cm}
+\usepackage{todonotes}
+
+\definecolor{Myred}{rgb}{0.7, 0.2, 0.2}
+
+\usecolortheme[named=Myred]{structure}
+
+
+\newcommand{\plus}{{\includegraphics[scale=0.01]{plus.png}}}
+\newcommand{\minus}{{\includegraphics[scale=0.06]{minus.png}}}
+
+\usepackage{pres}
+% \usepackage{mathdots}
+%\usepackage{qtree}
+\usepackage{pgfpages}
+% \pgfpagesuselayout{4 on 1}[a4paper, landscape,border shrink=5mm]
+%\pgfpagesuselayout{2 on 1}[a4paper,border shrink=5mm]
+\pgfpageslogicalpageoptions{1}{border code=\pgfusepath{stroke}}
+\pgfpageslogicalpageoptions{2}{border code=\pgfusepath{stroke}}
+\pgfpageslogicalpageoptions{3}{border code=\pgfusepath{stroke}}
+\pgfpageslogicalpageoptions{4}{border code=\pgfusepath{stroke}}
+
+\usepackage{picture}
+\usepackage{pgfplots}
+\usepackage{filecontents}
+% \pgfplotsset{compat=1.12}
+\usepackage{pdflscape}
+
+\beamertemplatenavigationsymbolsempty
+
+\newcommand{\travail}{\textbf{ICI IL Y A D TRAVAIL!}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% PRESENTATION INFO %%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title[CSC - Intro]{Cryptography - Principles \\ --Cryptographie et Sécurité des Communications--} 
+\author[]{Lionel Morel}
+\institute[]{Telecommunications - INSA Lyon}
+\date{Fall-Winter 2021-22}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%% COLORS %%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{greenCiti}{RGB}{83,186,89}
+\definecolor{darkGreen}{RGB}{60,132,136}
+\definecolor{purple}{RGB}{76, 69, 164}
+\colorlet{corecolor}{lightgray}
+\definecolor{uncorecolor}{RGB}{222,181,182}
+\definecolor{lightgray}{rgb}{0.8,0.8,0.8}
+\definecolor{lightblue}{RGB}{188,212,244}
+\colorlet{socketcolor}{blue!20}
+
+\colorlet{getpcolor}{red}
+\colorlet{leetcolor}{darkGreen}
+
+\definecolor{redfixit}{RGB}{188,43,0}
+\definecolor{yellowfixit}{RGB}{235,237,62}
+\definecolor{bluefixit}{RGB}{7,2,236}
+\definecolor{orangefixit}{RGB}{227,118,24}
+\definecolor{cyanfixit}{RGB}{1,171,159}
+\definecolor{purplefixit}{RGB}{206,92,232}
+\definecolor{greenfixit}{RGB}{102,156,52}
+
+
+
+\begin{document}
+
+\begin{frame}
+  \maketitle
+\end{frame}
+
+\section{Context}
+
+\begin{frame}
+  \frametitle{Cryptographie}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Bases mathématiques}
+
+  \begin{itemize}
+  \item Il me faut le modulo
+  \item L'exponentiation
+  \item 
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{One-Time Pads}
+
+  \begin{itemize}
+  \item On se souvient de comment ça marche.
+  \item On se souvient des limites principales:
+    \begin{itemize}
+    \item la clé (l'OTP) doit être aussi grande que le message.
+    \item Générer du ``Vrai'' random c'est dur. 
+    \end{itemize}
+  \item On fait remarquer qu'une force des OTPs qu'on veut
+    ``retrouver'' (même si un peu moins forte) c'est que le chiffré ne
+    doit pas faire ressortir de ``régularité statistique'' du
+    plaintext.
+  \end{itemize}
+  
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Symmetric Cryptography - Desired Properties}
+
+  Dans le chapitre 6 du live de Barakat, il set dit:
+
+  Two main concepts that build the basis for modern symmetric block
+  ciphers are confusion and diffusion.
+  \begin{itemize}
+  \item Confusion is the concept that a digit resp. bit of the
+    ciphertext $c \in C$ depends on several parts of the key $e \in K$.
+  \item Diffusion is the concept that if we change a digit resp. bit
+    of the plaintext $p\in P$ then the impact on the ciphertext $c \in C$ in 
+    unpredictable.
+  \end{itemize}
+
+  
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Symmetric Cryptography - Principles}
+
+  \begin{center}
+    \includegraphics[width=\textwidth]{symCrypto-basic.pdf}
+  \end{center}
+
+  \begin{itemize}
+  \item Encryption and Decryption use the same key
+  \item Used implementations are quit efficient. 
+  \item TODO: donner des ordres de grandeur. 
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{A brief history of Symmetric Encryption - Feistel}
+  \begin{minipage}{.35\linewidth}
+    \includegraphics[width=\textwidth]{Feistel.pdf}
+  \end{minipage}
+  \begin{minipage}{.55\linewidth}
+    \begin{itemize}
+    \item block cipher
+    \item $r$ rounds
+    \item key $k$ is spilt into $r$ subkeys: $(k_0, ..., k_{r-1})$
+    \item plaintext = $(L_0, R_0)$
+    \item $(L_{i+1}, R_{i+1}) = (R_i, L_i \oplus f_{k_i}(R_i))$
+    \end{itemize}
+  \end{minipage}
+
+
+  \alert{Il manque les limites de Feistel (pourquoi faire ``mieux'')}
+  
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Symmetric Cryptographye - DES}
+
+  Expands Feistel algorithm, by introducing: 
+  \begin{itemize}
+  \item More permutations
+  \item Substitution Boxes (S-Boxes)
+  \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{S-Boxes}
+
+  \begin{itemize}
+  \item Obscure the relationship between the key and the ciphertext
+  \item m-bits input $\longrightarrow$ n-bits output
+  \item Implemented as a lookup table (efficient)
+  \end{itemize}
+
+  \begin{center}
+    \includegraphics[width=\textwidth,keepaspectratio]{fig/example-Sbox.png}
+  \end{center} 
+ 
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{DES - General Algorithm}
+  \begin{center}
+    \includegraphics[height=0.8\textheight,keepaspectratio]{fig/DES1.pdf}
+  \end{center} 
+  
+\end{frame}
+
+\begin{frame}
+  \frametitle{DES - One Round}
+  \begin{center}
+    \includegraphics[height=0.8\textheight,keepaspectratio]{fig/DES-OneRound.pdf}
+  \end{center} 
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{DES - Weaknesses and Attacks}
+
+  \travail
+  
+\end{frame}
+
+
+
+
+\begin{frame}[fragile]
+  \frametitle{Algorithm}
+\begin{verbatim}
+  void AES_Run_secure(void)
+{
+  int i;
+  addRoundKey();
+  for(i = 0; i < 9; i++)
+	{
+      subBytes();
+	  shiftRows();
+	  mixColumns();
+	  computeKey(rcon[i]);
+	  addRoundKey();
+	}
+
+  subBytes();
+  shiftRows();
+  computeKey(rcon[i]);
+  addRoundKey();
+}
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{AES explained\footnote{\url{https://en.wikipedia.org/wiki/Advanced_Encryption_Standard}}}
+
+  \begin{itemize}
+  \item \textbf{KeyExpansion} --- round keys are derived from the
+    cipher key using the AES key schedule. AES requires a separate
+    128-bit round key block for each round plus one more.
+
+    
+  \item \textbf{Initial round key addition}:
+
+    \begin{itemize}
+    \item \textbf{AddRoundKey} – each byte of the state is combined with a byte
+      of the round key using bitwise xor.
+    \end{itemize}
+
+  \end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+  \frametitle{AES (cont'd)}
+  \begin{itemize}
+  \item 9, 11 or 13 \textbf{rounds}:
+    \begin{itemize}
+    \item \textbf{SubBytes} – a non-linear substitution step where each byte is
+      replaced with another according to a lookup table.  
+    \item \textbf{ShiftRows} –
+      a transposition step where the last three rows of the state are
+      shifted cyclically a certain number of steps.  
+    \item \textbf{MixColumns} – a
+      linear mixing operation which operates on the columns of the
+      state, combining the four bytes in each column.
+      AddRoundKey
+    \end{itemize}
+
+  \item Final round (making 10, 12 or 14 rounds in total):
+    \begin{itemize}
+    \item \textbf{SubBytes}
+    \item \textbf{ShiftRows}
+    \item \textbf{AddRoundKey}
+    \end{itemize}
+  \end{itemize}
+  
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Symmetric Cryptogaphy - Conclusions}
+
+  \begin{itemize}
+  \item[\plus] Overall very effecient (linear in the size of data to encrypt)
+  \item[\plus] Arithmetic/Logical operations are simple: xor. 
+  \item[\minus] Requires a shared key! 
+  \item Two solutions to this:
+    \begin{itemize}
+    \item Find a way to securely share a common key
+    \item Avoid the need for a common key
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+
+
+
+\begin{frame}
+  \frametitle{Asymmetric Cryptography}
+ 
+\end{frame}
+
+\begin{frame}
+  \frametitle{Key Sharing Problem}
+\end{frame}
+
+
+
+\begin{frame}
+  \frametitle{Limits: DH, RSA and Beyond}
+
+  \begin{itemize}
+  \item ElGamal ? 
+  \end{itemize}
+\end{frame}
+
+
+\end{document}
+
+  

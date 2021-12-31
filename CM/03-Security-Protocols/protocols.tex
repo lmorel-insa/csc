@@ -1,0 +1,111 @@
+\documentclass[
+hyperref={pdfpagelabels=false}
+%,red %, notes=show
+,xcolor=table
+% ,handout % UNCOMMENT FOR HANDOUT - also uncomment \pgfpagesuselayout
+]
+{beamer}
+
+%\usecolortheme{beaver}
+
+
+\setlength {\marginparwidth }{2cm}
+\usepackage{todonotes}
+
+\definecolor{Myred}{rgb}{0.7, 0.2, 0.2}
+
+\usecolortheme[named=Myred]{structure}
+
+
+\usepackage{pres}
+% \usepackage{mathdots}
+%\usepackage{qtree}
+\usepackage{pgfpages}
+% \pgfpagesuselayout{4 on 1}[a4paper, landscape,border shrink=5mm]
+%\pgfpagesuselayout{2 on 1}[a4paper,border shrink=5mm]
+\pgfpageslogicalpageoptions{1}{border code=\pgfusepath{stroke}}
+\pgfpageslogicalpageoptions{2}{border code=\pgfusepath{stroke}}
+\pgfpageslogicalpageoptions{3}{border code=\pgfusepath{stroke}}
+\pgfpageslogicalpageoptions{4}{border code=\pgfusepath{stroke}}
+
+\usepackage{picture}
+\usepackage{pgfplots}
+\usepackage{filecontents}
+% \pgfplotsset{compat=1.12}
+\usepackage{pdflscape}
+
+\beamertemplatenavigationsymbolsempty
+
+\newcommand{\travail}{\textbf{ICI IL Y A D TRAVAIL!}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% PRESENTATION INFO %%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title[CSC - Intro]{Secured Communication Protocols \\ --Cryptographie et Sécurité des Communications--} 
+\author[]{Lionel Morel}
+\institute[]{Telecommunications - INSA Lyon}
+\date{Fall-Winter 2021-22}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%% COLORS %%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{greenCiti}{RGB}{83,186,89}
+\definecolor{darkGreen}{RGB}{60,132,136}
+\definecolor{purple}{RGB}{76, 69, 164}
+\colorlet{corecolor}{lightgray}
+\definecolor{uncorecolor}{RGB}{222,181,182}
+\definecolor{lightgray}{rgb}{0.8,0.8,0.8}
+\definecolor{lightblue}{RGB}{188,212,244}
+\colorlet{socketcolor}{blue!20}
+
+\colorlet{getpcolor}{red}
+\colorlet{leetcolor}{darkGreen}
+
+\definecolor{redfixit}{RGB}{188,43,0}
+\definecolor{yellowfixit}{RGB}{235,237,62}
+\definecolor{bluefixit}{RGB}{7,2,236}
+\definecolor{orangefixit}{RGB}{227,118,24}
+\definecolor{cyanfixit}{RGB}{1,171,159}
+\definecolor{purplefixit}{RGB}{206,92,232}
+\definecolor{greenfixit}{RGB}{102,156,52}
+
+
+
+\begin{document}
+
+\begin{frame}
+  \maketitle
+\end{frame}
+
+\section{Context}
+
+\begin{frame}
+  \frametitle{}
+
+  La discours général consiste à dire qu'une fois qu'on a DH on n'a pas tout réglé.
+
+  \begin{itemize}
+  \item négociations
+  \item 3-rd party certificat storage
+  \item PKI centralisé
+  \item Signal, etc. 
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Hybrid Cryptography}
+
+  
+  
+\end{frame}
+
+\begin{frame}
+  \frametitle{Needham-Schroeder}
+\end{frame}
+
+
+\end{document}
+
+  
