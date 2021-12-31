@@ -9,14 +9,28 @@ _Lionel Morel ([lionel.morel@insa-lyon.fr](mailto:lionel.morel@insa-lyon.fr))_
 
 Le cours 4TC-CSC est structuré de la manière suivante :
 
-* 2 séances de 1h de questions/réponses/discussions (noté CM)
-* 2 séance de 2h de cours (noté CM)
+* 3 séances de 2h de CM (incluant questions/réponses/discussions)
 * 6 TD de 2h
 * 1 séance de 4h de TP
 * Environ 10h de travail personnel (préparation cours et TP)
+* 1 séances de 2h de restitution (noté CM)
 
 
-Pour chaque séance, vous aurez un travail de préparation qui est décrit dans la suite de ce document. La préparation consiste à lire des ressources externes, les comprendre et préparer des questions pour la séance de cours/TD/TP associée. En bas de cette page, vous trouverez des questionnaires d'auto-évaluation à réaliser au fur et à mesure. Attention, le volume de travail personnel n'est pas négligeable et ne peut donc pas être réalisé au dernier moment, il est pour cela réservé à l'emploi du temps (même si vous êtes libre de le faire à un autre moment que le créneau prévu). La préparation a pour but d'acquérir les _connaissances_ nécessaires pour appréhender les _compétences_ qui seront vues en CM/TD/TP. Les connaissances ne seront **pas** traitées dans les heures de face-à-face, uniquement les questions _précises_ que vous aurez amenées (pas de réponses générales, uniquement aux questions montrant que le travail de préparation a été fait).
+Pour chaque séance, vous aurez un travail de préparation qui est
+décrit dans la suite de ce document. La préparation consiste à lire
+des ressources externes, les comprendre et préparer des questions pour
+la séance de cours/TD/TP associée. En bas de cette page, vous
+trouverez des questionnaires d'auto-évaluation à réaliser au fur et à
+mesure. Attention, le volume de travail personnel n'est pas
+négligeable et ne peut donc pas être réalisé au dernier moment, il est
+pour cela réservé à l'emploi du temps (même si vous êtes libre de le
+faire à un autre moment que le créneau prévu). La préparation a pour
+but d'acquérir les _connaissances_ nécessaires pour appréhender les
+_compétences_ qui seront vues en CM/TD/TP. Certaines connaissances
+sont plus largement discutées dans les heures de face-à-face, mais pas
+toutes et il vous revient de poser des questions précises sur les
+points que vous aurez étudié de votre coté et qui n'auraient pas
+trouvé réponses dans les séances telles qu'elles sont préparées.
 
 <!--
 La note finale de l'UE sera calculée comme suit :
@@ -27,11 +41,10 @@ La note finale de l'UE sera calculée comme suit :
 
 La structure détaillée est la suivante, la préparation de chaque item est détaillée dans la suite du document :
 
-* Introduction des objectifs : CM1 (1h), Travail perso (2h)
+* Introduction des objectifs : Travail perso (2h), CM1 (1h30)
 * Enjeux éthiques : Travail perso (2h), TD1 (2h)
-<!-- * Maths pour la crypto : CM2 (sans préparation, le seul), TD1, TP1 -->
-* Bases de la crypto : Travail perso (2h), CM2 (QR, 1h), TD2 (2h)
-* Stockage des mots de passe : TD3
+* Bases de la crypto : Travail perso (2h), CM2 (1h30), TD2 (2h)
+* Stockage des mots de passe : TD3 (2h)
 * PKI (autorités de certification, DANE et PGP) : Travail perso (2h), TD4, TD5
 * Protocoles cryptographiques : CM3 (2h), TP1 (4h)
 * Projet d'arpentage communications : Travail perso (2h), TD6 (2h), CM4 (2h)
@@ -40,7 +53,7 @@ Pour interagir/discuter/commenter/poser des questions en dehors des heures de co
 
 Le cours (pour les séances de travail personnel) est [ici](cours.md)
 
-Les notes de CM : [CM1 (intro)](cm1-intro.md) / [CM3 (wrap-up)](cm3-wrapup.md)
+Les notes de CM : [CM1 (intro)](CM/handout/intro.pdf) / CM2 (Bases) (TBA) / CM3 (protocoles) (TBA)
 
 Les TD : [TD2 (JdR)](td2-jdr.md) / [TD3 (Passwords)](td3-passwords.md) / [TD4 (CA)](td4-ca.md) / [TD5 (DANE/PGP)](td5-danepgp.md)
 
