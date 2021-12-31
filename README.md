@@ -71,7 +71,7 @@ Les questions d'auto-évaluation : [Questions](questions.md)
 Les [annales](https://github.com/flesueur/csc/tree/master/annales)
 -->
 
-[Le DAG du cours](CM/01-intro/fig/CoursePlan.pdf)
+[Le DAG du cours](CM/01-intro/fig/CoursePlan.jpg)
 
 
 Licence
