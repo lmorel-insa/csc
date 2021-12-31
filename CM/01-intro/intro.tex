@@ -48,7 +48,7 @@ hyperref={pdfpagelabels=false}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%% PRESENTATION INFO %%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\title[CSC - Intro]{Introduction \\ --Cryptographie et Sécurité des Communications--} 
+\title[CSC - Intro]{Introduction \\ -- Cryptography and Secured Communications --} 
 \author[]{Lionel Morel}
 \institute[]{Telecommunications - INSA Lyon}
 \date{Fall-Winter 2021-22}
@@ -215,7 +215,7 @@ hyperref={pdfpagelabels=false}
   \item Eavesdropping, Trojans, Worms, Viruses
   \item Buffer Overflows, Spoofing, MITM attacks, Replay attacks, 
   \item Shoulder surfing, Dumpster diving, 
-  \item Password attacks (brute-force, dictionnary based), malicious-code attacks, 
+  \item Password attacks (brute-force, dictionary based), malicious-code attacks, 
   \item Side-channel attacks: cache, timing, power-monitoring, etc.
   \end{itemize}
 \end{frame}
@@ -391,10 +391,10 @@ hyperref={pdfpagelabels=false}
   \begin{itemize}
   \item \textbf{Every day}, the machine is reset to a pre-established configuration:
     \begin{itemize}
-    \item Rotors choice (3 or 4 or 5 amongst 6 possible)... = $20$. 
+    \item Rotors choice (3 or 4 or 5 among 6 possible)... = $20$. 
     \item Rotors permutation $26^3$ 
     \item Rotors initial positions $26^3$ 
-    \item Plugboard setting: $150.10^{12}$
+    \item Plug-board setting: $150.10^{12}$
     \end{itemize}
   \item \textbf{Every message} contains a rotors position the machine
     should be reset to before decrypting the rest of the message.
@@ -408,7 +408,7 @@ hyperref={pdfpagelabels=false}
   \item To brute-force Enigma is unpractical: 150 millions millions combinations
   \item A letter is encrypted into a different letter every time ....
   \item ... but never to itself !! \textbf{Main flaw}
-  \item Try to guess a word or phrase in a message (and Germans military did use reccurring messages, like weather reports)
+  \item Try to guess a word or phrase in a message (and Germans military did use recurring messages, like weather reports)
   \item ... 
   \end{itemize}
 
@@ -431,7 +431,7 @@ hyperref={pdfpagelabels=false}
   \begin{itemize}
   \item Adding a couple more properties, evict impossible configurations. 
   \item Scan through the remaining combinations using \textbf{the Bombe} : electro-mechanical machine able to ``play'' 36 Enigma equivalent ``in parallel''. 
-  \item In the end .... guess the key (wheel starting positions + plugboard) in less than 20minutes per day. 
+  \item In the end .... guess the key (wheel starting positions + plug-board) in less than 20minutes per day. 
   \end{itemize}
 
   \begin{minipage}{0.45\textwidth}

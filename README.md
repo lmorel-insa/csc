@@ -41,7 +41,7 @@ La note finale de l'UE sera calculée comme suit :
 
 La structure détaillée est la suivante, la préparation de chaque item est détaillée dans la suite du document :
 
-* Introduction des objectifs : Travail perso (2h), CM1 (1h30)
+* Introduction : Travail perso (2h), CM1 (1h30)
 * Enjeux éthiques : Travail perso (2h), TD1 (2h)
 * Bases de la crypto : Travail perso (2h), CM2 (1h30), TD2 (2h)
 * Stockage des mots de passe : TD3 (2h)
