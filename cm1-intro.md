@@ -1,5 +1,7 @@
 # CM 1 : Introduction -- Notes de cours
 
+THIS IS DEPRECATED. 
+
 _François Lesueur ([francois.lesueur@insa-lyon.fr](mailto:francois.lesueur@insa-lyon.fr), [@FLesueur](https://twitter.com/FLesueur))_
 
 Brainstorming des mots-clés crypto et sécu des coms, classification

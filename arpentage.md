@@ -1,6 +1,6 @@
 # Projet arpentage
 
-_François Lesueur ([francois.lesueur@insa-lyon.fr](mailto:francois.lesueur@insa-lyon.fr), [@FLesueur](https://twitter.com/FLesueur))_
+_Lionel Morel ([lionel.morel@insa-lyon.fr](mailto:lionel.morel@insa-lyon.fr)_
 
 Déroulé :
 * 2h en autonomie : choisir un sujet (en petit groupe ou seul), l'étudier et en rédiger un petit article explicatif (2-3 heures de travail)

@@ -1,6 +1,6 @@
 # TD 2 : Usage de la cryptographie asymétrique
 
-_François Lesueur ([francois.lesueur@insa-lyon.fr](mailto:francois.lesueur@insa-lyon.fr), [@FLesueur](https://twitter.com/FLesueur))_
+_Lionel Morel ([lionel.morel@insa-lyon.fr](mailto:lionel.morel@insa-lyon.fr)_
 
 Ce TD présente et applique les notions de cryptographie asymétrique :
 

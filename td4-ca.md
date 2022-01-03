@@ -1,6 +1,6 @@
 # TD 4 : Autorités de certification
 
-_François Lesueur ([francois.lesueur@insa-lyon.fr](mailto:francois.lesueur@insa-lyon.fr))_
+_Lionel Morel ([lionel.morel@insa-lyon.fr](mailto:lionel.morel@insa-lyon.fr))_
 
 Ce TD présente le modèle de PKI "Autorités de certification", généralement noté CA (_Certification Authority_). Pour rappel, dans le cas du HTTPS par exemple, une CA doit permettre de valider la clé publique tierce obtenue pour la connexion au site demandé.
 

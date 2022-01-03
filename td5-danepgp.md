@@ -1,6 +1,6 @@
 # TD 5 : DANE/PGP
 
-_François Lesueur ([francois.lesueur@insa-lyon.fr](mailto:francois.lesueur@insa-lyon.fr))_
+_Lionel Morel ([lionel.morel@insa-lyon.fr](mailto:lionel.morel@insa-lyon.fr))_
 
 Ce TD présente les modèles de PKI "DANE" et "PGP/Web of trust". Comme pour le cas de la CA, ces PKI doivent permettre de valider la clé publique tierce obtenue pour une identité demandée.
 

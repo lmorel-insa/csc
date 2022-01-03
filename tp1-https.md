@@ -1,6 +1,6 @@
 # TP 1 : Autorités de certification et HTTPS
 
-_François Lesueur ([francois.lesueur@insa-lyon.fr](mailto:francois.lesueur@insa-lyon.fr))_
+_Lionel Morel ([lionel.morel@insa-lyon.fr](mailto:lionel.morel@insa-lyon.fr))_
 
 <!-- TODO
 Une CA préconfigurée (et donc dans le TP, il faut l'opérer) et déjà reconnue par les browsers
