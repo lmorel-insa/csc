@@ -82,23 +82,73 @@ hyperref={pdfpagelabels=false}
 
 \begin{frame}
   \frametitle{}
+  \begin{itemize}
+  \item Bon jusque là on a juste parlé algo de chiffrement symmétrique
+    et assymétrique.
+  \item Mais on voit que ça suffit pas, il faut une infrastructure autour de AES+RSA
+  \end{itemize}
+\end{frame}
 
-  La discours général consiste à dire qu'une fois qu'on a DH on n'a pas tout réglé.
+\begin{frame}
+  \frametitle{Quoi}
+  Il s'agît de régler les questions suivantes
+  \begin{itemize}
+  \item chiffrement/déchiffrement
+  \item partage de clé
+  \item authentication (signature)
+  \end{itemize}
+\end{frame}
 
+\begin{frame}
+  \frametitle{SSH + openSSH}
+
+  \begin{itemize}
+  \item ssh c'est un SecuredShell, cryptographic network protocol
+  
+  \item OpenSSH c'est toute une infrastructure avec dedans: 
+    \begin{itemize}
+    \item ssh
+    \item scp, sftp
+    \item ssh-keygen
+    \item a server deamon
+  \end{itemize}
+  \end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+  \frametitle{PKI}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{HTTPs}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{}
+  La discours général consiste à dire qu'une fois qu'on a DH, RSA et AES on n'a pas tout réglé.
   \begin{itemize}
   \item négociations
   \item 3-rd party certificat storage
   \item PKI centralisé
-  \item Signal, etc. 
+  \item Double-ratchet (Signal) etc. 
+  \item SSL
+  \item PGP
+  \item SSH
   \end{itemize}
 \end{frame}
 
 
 \begin{frame}
-  \frametitle{Hybrid Cryptography}
+  \frametitle{}
+\end{frame}
 
-  
-  
+
+\begin{frame}
+  \frametitle{Hybrid Cryptography}
 \end{frame}
 
 \begin{frame}
