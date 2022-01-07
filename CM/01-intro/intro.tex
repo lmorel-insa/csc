@@ -117,7 +117,7 @@ hyperref={pdfpagelabels=false}
   \item Cryptography
   \item Cryptographic protocols
   \item Public-key infrastructures
-  \item Ethical issues
+  \item Associated ethical issues
   \end{itemize}
 \end{frame}
 
@@ -177,7 +177,7 @@ hyperref={pdfpagelabels=false}
   \begin{itemize}
   \item A \textbf{vulnerability} is a weakness which can be exploited by an
     attacker to access unauthorized information or to compromise the
-    attacked system's behavior
+    attacked system's behavior. 
   \item The \textbf{attack surface} of a system/application is the set of
     (known) vulnerabilities exposed by it to a potential attacker.
   \end{itemize}
@@ -220,6 +220,17 @@ hyperref={pdfpagelabels=false}
   \end{itemize}
 \end{frame}
 
+Quelques définitions:
+\begin{itemize}
+\item Trojan
+\item Worm
+\item Virus
+\item Buffer Overflow
+\item Spoofing
+\item Man-in-the-Middle Attack
+\item Replay
+\end{itemize}
+
 
 \begin{frame}
   \frametitle{Defenses - a quick panorama}
@@ -237,11 +248,10 @@ hyperref={pdfpagelabels=false}
   \frametitle{Definition - Communication Security}
 
   \begin{block}{}
-    \textbf{Communication Security} $\triangleq$
-    discipline of preventing unauthorized interceptors
-    from accessing telecommunications in an intelligible form, while
-    still delivering content to the intended
-    recipients. \footnote{\url{https://en.wikipedia.org/wiki/Communications_security}}
+    \begin{center}
+      \includegraphics[scale=1]{commSecurity.pdf}
+    \end{center}
+    \footnote{inspiration: \url{https://en.wikipedia.org/wiki/Communications_security}}
   \end{block}
 \end{frame}
 
@@ -304,7 +314,9 @@ hyperref={pdfpagelabels=false}
   \begin{itemize}
   \item[\plus] Encryption and decryption are cheap
   \item[\minus] Easy to crack with frequency analysis
-  \item[\minus] Sufficient when no-one around can read :) 
+  \item[\minus] Sufficient when no-one around can read :) (in
+    particular, what's the difference between a foreign language and
+    an encrypted language, if you can't read the first).
   \end{itemize}
 \end{frame}
 
@@ -367,7 +379,7 @@ hyperref={pdfpagelabels=false}
   \item Invented at the end of WWI
   \item Used extensively by Nazi Germany during WWII
   \item First cracked by Polish services during the early 30s ... 
-  \item ... the by British-led effort at Bletchley Park, including Alan Turing. 
+  \item ... then by British-led effort at Bletchley Park, including Alan Turing. 
   \end{itemize}
 \end{frame}
 
@@ -387,14 +399,14 @@ hyperref={pdfpagelabels=false}
 
 
 \begin{frame}
-  \frametitle{Enigma - How does it work?}
+  \frametitle{Enigma - Combinatorial}
   \begin{itemize}
   \item \textbf{Every day}, the machine is reset to a pre-established configuration:
     \begin{itemize}
-    \item Rotors choice (3 or 4 or 5 among 6 possible)... = $20$. 
-    \item Rotors permutation $26^3$ 
-    \item Rotors initial positions $26^3$ 
-    \item Plug-board setting: $150.10^{12}$
+    \item $20$ Rotors choice (3 or 4 or 5 among 6 possible). 
+    \item $26^3$ Rotors permutation 
+    \item  $26^3$Rotors initial positions 
+    \item Plug-board settings: $150.10^{12}$
     \end{itemize}
   \item \textbf{Every message} contains a rotors position the machine
     should be reset to before decrypting the rest of the message.
@@ -402,7 +414,7 @@ hyperref={pdfpagelabels=false}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Enigma - breaking the machine}
+  \frametitle{Enigma - Breaking the machine}
 
   \begin{itemize}
   \item To brute-force Enigma is unpractical: 150 millions millions combinations
@@ -426,14 +438,20 @@ hyperref={pdfpagelabels=false}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Enigma - breaking the machine}
+  \frametitle{Enigma - Breaking the machine}
 
   \begin{itemize}
   \item Adding a couple more properties, evict impossible configurations. 
   \item Scan through the remaining combinations using \textbf{the Bombe} : electro-mechanical machine able to ``play'' 36 Enigma equivalent ``in parallel''. 
   \item In the end .... guess the key (wheel starting positions + plug-board) in less than 20minutes per day. 
   \end{itemize}
+ 
+\end{frame}
 
+
+
+\begin{frame}
+    \frametitle{Enigma}
   \begin{minipage}{0.45\textwidth}
     \includegraphics[scale=0.1]{rebuilt-bombe-bletchley-park.jpg}
   \end{minipage}
@@ -442,7 +460,7 @@ hyperref={pdfpagelabels=false}
     \includegraphics[scale=0.1]{alanTuring.jpg}
   \end{minipage}
 
-  \footnote{watch \url{https://en.wikipedia.org/wiki/The_Imitation_Game}}
+  \footnote*{watch \url{https://en.wikipedia.org/wiki/The_Imitation_Game}}
   
 \end{frame}
 
