@@ -2,7 +2,7 @@
 
 THIS IS DEPRECATED. 
 
-_François Lesueur ([francois.lesueur@insa-lyon.fr](mailto:francois.lesueur@insa-lyon.fr), [@FLesueur](https://twitter.com/FLesueur))_
+_Lionel Morel ([lionel.morel@insa-lyon.fr](mailto:lionel.morel@insa-lyon.fr)
 
 Brainstorming des mots-clés crypto et sécu des coms, classification
 ===========

@@ -24,6 +24,7 @@ def crackencrypted(database):
         crackeddb.append((i[0],i[1])) # second argument should contain cleartext password
     return crackeddb
 
+
 # Hint : - genshahashes(passwords) returns all the hashes of passwords dictionary
 #        - getpassfromshahash(hashes, hash) returns the password which hashed as "hash" in hashes
 def cracksha(database):
@@ -97,35 +98,35 @@ if __name__ == '__main__':
     print("Time to crack encrypted DB : " + str(end-start) + " seconds")
     print("Cracked encrypted DB is " + str(crackedenc))
 
-    #test SHA db
-    print("\n============\nSHA storage:")
-    shadb = readfile("sha")
-    print("SHA DB is " + str(shadb))
-    print("Authenticating with SHA DB : " + str(authsha(plaindb[0][0],plaindb[0][1],shadb)))
-    start = time.time()
-    crackedsha = cracksha(shadb)
-    end = time.time()
-    print("Time to crack SHA DB : " + str(end-start) + " seconds")
-    print("Cracked SHA DB is " + str(crackedsha))
+    # #test SHA db
+    # print("\n============\nSHA storage:")
+    # shadb = readfile("sha")
+    # print("SHA DB is " + str(shadb))
+    # print("Authenticating with SHA DB : " + str(authsha(plaindb[0][0],plaindb[0][1],shadb)))
+    # start = time.time()
+    # crackedsha = cracksha(shadb)
+    # end = time.time()
+    # print("Time to crack SHA DB : " + str(end-start) + " seconds")
+    # print("Cracked SHA DB is " + str(crackedsha))
 
-    #test Salted SHA db
-    print("\n============\nSalted SHA storage:")
-    saltedshadb = readfile("saltedsha")
-    print("Salted SHA DB is " + str(saltedshadb))
-    print("Authenticating with Salted SHA DB : " + str(authsaltedsha(plaindb[0][0],plaindb[0][1],saltedshadb)))
-    start = time.time()
-    crackedsaltedsha = cracksaltedsha(saltedshadb)
-    end = time.time()
-    print("Time to crack salted SHA DB : " + str(end-start) + " seconds")
-    print("Cracked salted SHA DB is " + str(crackedsaltedsha))
+    # #test Salted SHA db
+    # print("\n============\nSalted SHA storage:")
+    # saltedshadb = readfile("saltedsha")
+    # print("Salted SHA DB is " + str(saltedshadb))
+    # print("Authenticating with Salted SHA DB : " + str(authsaltedsha(plaindb[0][0],plaindb[0][1],saltedshadb)))
+    # start = time.time()
+    # crackedsaltedsha = cracksaltedsha(saltedshadb)
+    # end = time.time()
+    # print("Time to crack salted SHA DB : " + str(end-start) + " seconds")
+    # print("Cracked salted SHA DB is " + str(crackedsaltedsha))
 
-    # test PBKDF2 DB
-    print("\n============\nPBKDF2 storage:")
-    pbkdf2db = readfile("pbkdf2")
-    print("PBKDF2 DB is " + str(pbkdf2db))
-    print("Authenticating with PBKDF2 DB : " + str(authpbkdf2(plaindb[0][0],plaindb[0][1],pbkdf2db)))
-    start = time.time()
-    crackedpbkdf2 = crackpbkdf2(pbkdf2db)
-    end = time.time()
-    print("Time to crack PBKDF2 DB : " + str(end-start) + " seconds")
-    print("Cracked PBKDF2 DB is " + str(crackedpbkdf2))
+    # # test PBKDF2 DB
+    # print("\n============\nPBKDF2 storage:")
+    # pbkdf2db = readfile("pbkdf2")
+    # print("PBKDF2 DB is " + str(pbkdf2db))
+    # print("Authenticating with PBKDF2 DB : " + str(authpbkdf2(plaindb[0][0],plaindb[0][1],pbkdf2db)))
+    # start = time.time()
+    # crackedpbkdf2 = crackpbkdf2(pbkdf2db)
+    # end = time.time()
+    # print("Time to crack PBKDF2 DB : " + str(end-start) + " seconds")
+    # print("Cracked PBKDF2 DB is " + str(crackedpbkdf2))

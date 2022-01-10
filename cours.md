@@ -64,6 +64,9 @@ Ouverture (facultative):
 
 Cette section sera suivie d'une heure de questions-réponses (vous **devez** venir avec une question sur cette partie) puis conclue par le TD2 JDR.
 
+Pour aller (un peu plus loin), je jette en vrac des lectures intéressantes : 
+* [Une analyse grand publique de la surveillance de la NSA](https://www.theguardian.com/world/2013/sep/05/nsa-how-to-remain-secure-surveillance), où l'on prend un peu la mesure des capacités de la NSA en particulier. Note : on est en droit de penser que la NSA n'est pas la seule à pouvoir faire ce qu'elle peut faire, même si elle a certainement des moyens plus importants que des agences équivalentes à travers le monde (probablement de plusieurs ordre de grandeurs aux équivalents européens). 
+
 Infrastructures à clés publiques (PKI)
 =======================================
 
