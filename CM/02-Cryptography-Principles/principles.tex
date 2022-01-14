@@ -88,6 +88,11 @@ hyperref={pdfpagelabels=false}
 }
 
 
+\usepackage{tcolorbox}
+\tcbset{colframe=white,colback=white,nobeforeafter}
+
+
+
 
 \begin{document}
 
@@ -103,15 +108,14 @@ hyperref={pdfpagelabels=false}
 
 
 \begin{frame}
-  \frametitle{Bases mathématiques}
+  \frametitle{Objectives}
 
   \begin{itemize}
-  \item Il me faut le modulo
-  \item L'exponentiation
-  \item 
+  \item Encryption / Decryption (Confidentiality)
+  \item Verification (Integrity)
+  \item Signature (Authenticity)
   \end{itemize}
 \end{frame}
-
 
 \begin{frame}
   \frametitle{One-Time Pads}
@@ -128,28 +132,69 @@ hyperref={pdfpagelabels=false}
     doit pas faire ressortir de ``régularité statistique'' du
     plaintext.
   \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{One-Time Pads}
+
+  On se souvient par contre que le One-Time Pad est ``parfait'' en terme de sécurité. On va donc chercher à construire des crypto-systèmes qui soient ``également'' parfaits.
+
+  D'abord on définit les propriétés de telles systèmes: Kerchoffs et Shannon
   
 \end{frame}
 
 
 \begin{frame}
-  \frametitle{Cryptography - Desired Properties}
-
-  Dans le chapitre 6 du live de Barakat, il set dit:
-
-  Two main concepts that build the basis for modern symmetric block
-  ciphers are confusion and diffusion.
+  \frametitle{Kerchoffs Principle {\normalsize (in ``La Cryptographie Militaire'' 1883)}}
+  \begin{center}
+    \includegraphics[width=\textwidth,height=0.5\textheight,keepaspectratio]{Kerckhoffs.pdf}
+  \end{center}
+  
   \begin{itemize}
-  \item Confusion is the concept that a digit resp. bit of the
-    ciphertext $c \in C$ depends on several parts of the key $e \in K$.
-  \item Diffusion is the concept that if we change a digit resp. bit
-    of the plaintext $p\in P$ then the impact on the ciphertext $c \in C$ in 
-    unpredictable.
+  \item The adversary knows the system [Shannon]
+  \item $\ne$ Security by Obscurity
+  \item Largely accepted in cryptography
+  \item Can be more widely applied to InfoSec (Information System Security) in general. 
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Confusion and Diffusion (Shannon, 1949)}
+
+  \begin{block}{Confusion}
+    \begin{itemize}
+    \item Each bit in the ciphertext should \textbf{depend on several parts of
+      the key}
+    \item Usually implemented using \textbf{Substitutions}, aka S-Boxes
+    \end{itemize}
+  \end{block}
+
+
+  \begin{block}{Diffusion}
+    \begin{itemize}
+    \item Encryption/decryptions imply an \textbf{avalanche effet}. Formally (in the original Shannon description): changing a single bit in the plaintext changes half of the bits in the cipher-text (eg at the block granularity)
+    \item Usually implemented using \textbf{Permutations} (P-Boxes)
+    \end{itemize}
+  \end{block}
+  
+\end{frame}
+
+
+
+\begin{frame}
+  \frametitle{Precautions}
+
+  \begin{itemize}
+  \item Use recognized libraries (eg OpenSSL), not your own implementation
+  \item Prefer open-source implementations (easier to identify bugs and backdoors)\footnote{\url{https://www.theguardian.com/world/2013/sep/05/nsa-how-to-remain-secure-surveil}lance}
+  \item In this class, a lot of simplified versions (same on wikipedia)
+  \item 
   \end{itemize}
 
   
 \end{frame}
-
 
 \section{Symmetric Encryption}
 
@@ -162,17 +207,66 @@ hyperref={pdfpagelabels=false}
   \end{center}
 
   \begin{itemize}
-  \item Encryption and Decryption use the same key
-  \item Used implementations are quit efficient. 
-  \item TODO: donner des ordres de grandeur. 
+  \item Encryption, Decryption, Signature and Verification use the same key
+  \item Used implementations are quite efficient. 
+  \item A key for each pair of communicating entities
+  \item[$\Rightarrow$] Rapid explosion in the number of keys
   \end{itemize}
 \end{frame}
 
-\begin{frame}
-  \frametitle{TODO}
 
-  Stream-cipher vs Block-cipher
+\begin{frame}
+  \frametitle{Symmetric ciphers - Basic Principles}
+
+  \begin{center}
+    \includegraphics[width=\textwidth,height=0.6\textheight,keepaspectratio]{fig/subPerm-principle.pdf}
+  \end{center}
+  
+  Built as a network of substitution/permutation functions:
+  \begin{itemize}
+  \item Substitution: replace $n$ bits by a pre-determined (but moving) table. Must be one-to-one (to allow reversibility of encryption function)
+  \item Permutation: exchange bits
+  \end{itemize}
+ 
 \end{frame}
+
+\begin{frame}
+  \frametitle{Symmetric ciphers - Baisc Principles}
+
+  \begin{block}{Block cipher}
+    \begin{itemize}
+    \item Treat input as fixed-size blocks (between 64 and 128 bits)
+    \item[\plus] More secure
+    \item[\minus] Requires padding
+    \end{itemize}
+  \end{block}
+
+
+  \begin{block}{Stream cipher}
+    \begin{itemize}
+    \item Treat input one byte at a time
+    \item[\plus] fast HW implementation
+    \item[\minus] Security less guaranteed
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Symmetric ciphers - Basic Principles}
+
+  Operation Modes:
+  \begin{itemize}
+  \item Electronic Code Book
+  \item Cipher Block Chaining
+  \item CounTeR
+  \end{itemize}
+
+  \textbf{TODO: expliquer chacun dans les grandes lignes}
+  
+\end{frame}
+
+
+
 
 
 \begin{frame}
@@ -217,20 +311,24 @@ hyperref={pdfpagelabels=false}
 \end{frame}
 
 
-\begin{frame}
-  \frametitle{S-Boxes}
+% \begin{frame}
+%   \frametitle{S-Boxes}
 
-  \begin{itemize}
-  \item Obscure the relationship between the key and the ciphertext
-  \item m-bits input $\longrightarrow$ n-bits output
-  \item Implemented as a lookup table (efficient)
-  \end{itemize}
 
-  \begin{center}
-    \includegraphics[width=\textwidth,keepaspectratio]{fig/example-Sbox.png}
-  \end{center} 
+%   \textbf{Redondant!!}
+  
+
+%   \begin{itemize}
+%   \item Obscure the relationship between the key and the ciphertext
+%   \item m-bits input $\longrightarrow$ n-bits output
+%   \item Implemented as a lookup table (efficient)
+%   \end{itemize}
+
+%   \begin{center}
+%     \includegraphics[width=\textwidth,keepaspectratio]{fig/example-Sbox.png}
+%   \end{center} 
  
-\end{frame}
+% \end{frame}
 
 
 \begin{frame}
@@ -264,8 +362,58 @@ hyperref={pdfpagelabels=false}
     \item TODO: explain each. 
     \end{itemize}
   \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Differential Cryptanalysis}
+
+  \textbf{A FINIR}
+
+  
+  Principle: 
+  \begin{itemize}
+  \item Choose two plaintexts $x$ and $y$ such that: \\
+    $y = x \oplus \Delta_x$
+  \item Compute the corresponding cyphertexts and for each S-Box S: 
+    \begin{itemize}
+    \item $S(x)$
+    \item $S(y) = S(x \oplus \Delta_x)$
+    \end{itemize}
+  \item Compute difference on S-Boxes:
+    \begin{itemize}
+    \item $\Delta_y = S(x \oplus \Delta_x) \oplus S(x)$
+    \end{itemize}
+  \item Repeat this for many plaintexts and several key hypothesis $k_i i \in \{0, n\}$
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Linear Cryptanalysis}
+
+  \textbf{A FAIRE}
   
 \end{frame}
+
+
+\begin{frame}
+  \frametitle{3DES}
+
+  \begin{itemize}
+  \item Standardized in 1998 to compensate for the weaknesses of DES
+  \item DES has a 56-bits key
+  \item 3DES chains 3 DES together:
+    \begin{itemize}
+    \item Encrypt(K1)$\rightarrow$Decrypt(K2)$\rightarrow$Encrypt(K1)
+    \item Decrypt(K1)$\rightarrow$Encrypt(K2)$\rightarrow$Decrypt(K1)
+    \item Key: 112 bits (K1 + K2)
+    \end{itemize}
+  \item Developped in parallel of AES (waiting for AES to be defined)
+  \end{itemize}
+ 
+\end{frame}
+
 
 
 
@@ -273,8 +421,20 @@ hyperref={pdfpagelabels=false}
   \frametitle{AES - Advanced Encryption Standard}
   \begin{itemize}
   \item Supersedes DES
+  \item Standardized in 2001
+  \item NIST-organized competition with 5 finalists:
+    \begin{itemize}
+    \item IBM proposed MARS
+    \item RSA proposed RC6
+    \item Serpent by Anderson, Bihman, Knudsen
+    \item Twofish by Cruce Schneier et al
+    \item Rijndael, by Daemen and Rijmen
+    \end{itemize}
+  \item Rijndael's was elected by community after a thourough international comparative effort (including NSA, companies, academics), based on security, performance (speed, memory usage).
+  \item NB: no-patent allowed (imposed by the NIST)
   \end{itemize}
 \end{frame}
+
 
 \begin{frame}[fragile]
   \frametitle{Algorithm}
@@ -297,6 +457,9 @@ void AES_Run_secure(void){
 \end{minted}
 \end{frame}
 
+
+
+
 \begin{frame}[fragile]
   \frametitle{AES explained\footnote{\url{https://en.wikipedia.org/wiki/Advanced_Encryption_Standard}}}
 
@@ -306,6 +469,8 @@ void AES_Run_secure(void){
     128-bit round key block for each round plus one more.
   \end{itemize}
 \end{frame}
+
+
 
 \begin{frame}[fragile]
   \frametitle{AES (cont'd)}
@@ -332,7 +497,6 @@ void AES_Run_secure(void){
 
   SubBytes = a non-linear substitution step where each byte is
   replaced with another according to a lookup table.
-
 
   \begin{center}
     \includegraphics[width=\textwidth,height=0.6\textheight,keepaspectratio]{AES-SubBytes.png}
@@ -370,7 +534,7 @@ void AES_Run_secure(void){
 \begin{frame}
   \frametitle{AES - Weaknesses and Attacks}
 
-  TODO
+  \textbf{TODO}
   
 \end{frame}
 
@@ -385,7 +549,6 @@ void AES_Run_secure(void){
   \item[\minus] Requires a shared key! 
   \item Solutions to this:
     \begin{itemize}
-    \item Secret channel
     \item Avoid the need for a common key
     \item Find a way to securely share a common key
     \end{itemize}
@@ -415,6 +578,75 @@ void AES_Run_secure(void){
 \end{frame}
 
 
+
+\section{Hash}
+
+
+\begin{frame}
+  \frametitle{Cryprographic Hash}
+
+
+  \begin{center}
+    \includegraphics[width=\textwidth]{hmac.pdf}
+  \end{center}
+  
+  \begin{itemize}
+  \item eg Hash-based Message Authentication Code
+  \item Only sender and recipient can sign/verify the message
+  \end{itemize}
+  
+\end{frame}
+
+\begin{frame}
+  \frametitle{Cryptographic Hash - Principle}
+
+  \begin{itemize}
+  \item Compute a ``footprint''
+  \item The message can be of any size, the footprint is of fixed size
+  \item Pseudo-unique identification of message
+  \item Used for:
+    \begin{itemize}
+    \item Integrity checks
+    \item Cryptographic signature
+    \item PRNG
+    \item Hashed password storage
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Cryptographic Hash - Good Properties}
+
+  \begin{itemize}
+  \item \textbf{Pre-image resistance}: no one can reverse the hash function (to find input from output)
+  \item \textbf{Second pre-image resistance}: unicity of hash. Given an input and the corresponding hash, one cannot find another input with the same hash. 
+  \item \textbf{Collision-resistance}: no-one can produce two different inputs with the same hash
+  \item \textbf{Randomness}
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Cryptographic Hash - today' state of affairs}
+
+  Existing (and used) implementations
+  \begin{itemize}
+  \item MD5: please don't use anymore: ``cryptographically broken and
+    unsuitable for further use''
+  \item SHA-1: not recommanded anymore (since 2017)
+  \item SHA-2: still not planned for removal
+  \item SHA-3: standardized in 2015
+  \end{itemize}
+
+  Current situation:
+  \begin{itemize}
+  \item Hash functions are critical in crypto!
+  \item SHA-2 is still safe but is conceptually close to SHA-1 and might share some weaknesses with it
+  \item SHA-3 considered ``as safe'' but built completely differently
+  \end{itemize}
+\end{frame}
+
 \section{Asymmetric Cryptography}
 
 
@@ -429,21 +661,138 @@ void AES_Run_secure(void){
   \item $u$ can encrypt its messages to $v$ using a combination of $Pub_v$ and $Priv_u$
   \item $v$ can decrypt messages from $u$ using a combination  of $Pub_u$ and $Priv_v$
   \end{itemize}
-\end{frame}
 
-\begin{frame}
-  \frametitle{Rivest–Shamir–Adleman}
-\end{frame}
-
-
-
-\begin{frame}
-  \frametitle{Limits: DH, RSA and Beyond}
-
+  Note:
   \begin{itemize}
-  \item ElGamal ? 
+  \item Relies on ``hard mathematical problems'':
+    \begin{itemize}
+    \item Discrete logarithm
+    \item Factorization of large numbers
+    \end{itemize}
+  \item Usually slow (exponentiation)
   \end{itemize}
 \end{frame}
+
+\begin{frame}
+  \frametitle{RSA}
+  \begin{itemize}
+  \item Invented in 1977 by Rivest, Shamir and Adleman
+  \item MIT Patent in 1983, expired in 2000
+  \item Security based on the difficulty of factorizing large integers
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{RSA - Key generation}
+
+  \begin{itemize}
+  \item Choose $p$ and $q$, two prime numbers: random, kept secret
+  \item Compute $n = pq$
+  \item Compute $\lambda(n)$,
+    \begin{itemize}
+    \item $\lambda(n) = lcm(\lambda(p), \lambda(q))$
+    \item $= lcm(p-1, q-1)$
+    \item $= \frac{pq}{gcd(p,q)}$ ... (gcd obtained with Euclid. algorithm)
+    \end{itemize}
+  \item Choose $e$ s.t.:
+    \begin{itemize}
+    \item $1 < e < \lambda(n)$
+    \item $gdc(e,\lambda(n))=1$
+    \end{itemize}
+  \item Compute $d = e^{-1} \mbox{ mod } \lambda(n)$
+    \begin{itemize}
+    \item $d$ is the ``private key exponent''
+    \end{itemize}
+  \end{itemize}
+
+  \begin{tcolorbox}[colframe=Myred]
+    $Pub = (e,n)$ \hfill $Priv = (d,n)$
+  \end{tcolorbox}  
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{RSA - Encryption}
+
+  \begin{center}
+    \includegraphics[width=\textwidth,height=0.6\textheight,keepaspectratio]{fig/RSA-encryption.pdf}
+  \end{center}
+  
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{RSA - Decryption}
+
+  \begin{center}
+    \includegraphics[width=\textwidth,height=0.6\textheight,keepaspectratio]{fig/RSA-decryption.pdf}
+  \end{center}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{RSA - Signing}
+
+  \textbf{TODO}
+
+  (cf slides François)
+  
+\end{frame}
+
+\begin{frame}
+  \frametitle{RSA - Example}
+  \begin{enumerate}
+  \item $p = 61$ and $q = 53$
+  \item n = pq = 3233
+  \item $\lambda(n) = lcm(p-1, q-1)$
+  \item $= \lambda(3233) = lcm(60,52) = 780$
+  \item Choose $1<e<780$ (coprime to $780$), eg $e=17$
+  \item $d = e^-1 \mbox{ mod } \lambda(n)$
+  \item $= 413$ (as $1 = 17 * 413 \mbox{ mod } 780$)
+  \item Public key = $(e = 17, n = 3233)$
+  \item $c(m) = m^{17} \mbox { mod } 3233$
+  \item Private key = $(d = 413, m = 3233)$
+  \item $m(c) = c^{413} mod 3233$
+  \item $m = 65 \rightarrow c = 65^{17} \mbox{ mod } 3233 = 2790$
+  \item $2790 \rightarrow m = 2790^{413} \mbox{ mod } 3233 = 65$
+  \end{enumerate}
+  
+\end{frame}
+
+\begin{frame}
+  \frametitle{RSA - Properties \& Limitations}
+
+  \begin{itemize}
+  \item[\plus] Finding $d$ requires factorizing $n$: proven difficult (for $p$ and $q$ large)
+  \item[\minus] Implementation is tricky : good PRNG, acceptable $e$ 
+  \item[\minus] Relies on exponentiation which is \textbf{expensive} 
+  \end{itemize}
+
+  \textbf{TODO : expliquer pourquoi l'exponentiation est chere :) }
+  
+\end{frame}
+
+
+\section{Hybrid Cryptography}
+
+\begin{frame}
+  \frametitle{Comparing Symetric / Asymetric cryptogaphy}
+
+  \textbf{Slide 61 de François}
+  
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{}
+
+  \textbf{Slide 62 de François}
+
+  
+\end{frame}
+
+
 
 
 \end{document}
