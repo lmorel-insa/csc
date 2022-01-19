@@ -44,6 +44,17 @@ Cette liste n'est bien sûr pas exhaustive, toutes les suggestions d'ajout sont 
 
 Cette partie mènera à une discussion/débat lors de la séance de TD.
 
+Voici la liste des questions : 
+
+* Comment réguler la cryptographie ? Quels seraient les moyens techniques ?
+* Estimez-vous que la communication privée soit un droit essentiel ? Privée jusqu'à quel point ? Pourquoi ? Exemples de risques ?
+* Le sentiment de surveillance modifie-t-il votre comportement ? Exemples ?
+* Selon vous, la surveillance de masse est-elle dangereuse pour la démocratie ? Exemples ?
+* Acceptez-vous de donner vos informations à Facebook et autres GAFA ? Aux institutions étatiques ? Pourquoi ?
+* Quelle est votre perception des évolutions récentes ? Qui des informations collectées dans le cadre des lois "sanitaires" ?
+* Quel rôle vous voyiez vous tenir sur ces questions en tant que futur ingénieur ? 
+\end{itemize}
+
 
 Bases de la crypto
 =================
