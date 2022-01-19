@@ -1,6 +1,6 @@
 # TD 2 : Usage de la cryptographie asymétrique
 
-_Lionel Morel ([lionel.morel@insa-lyon.fr](mailto:lionel.morel@insa-lyon.fr)_
+_Lionel Morel ([lionel.morel@insa-lyon.fr](mailto:lionel.morel@insa-lyon.fr))_
 
 Ce TD présente et applique les notions de cryptographie asymétrique :
 
@@ -10,19 +10,19 @@ Ce TD présente et applique les notions de cryptographie asymétrique :
 
 Le cryptosystème que nous allons utiliser ici est basé sur la fonction RSA. Le cryptosystème proposé est simple et présente donc certaines vulnérabilités mais illustre le fonctionnement.
 
-Mode d'emploi distanciel
-========================
+<!-- Mode d'emploi distanciel -->
+<!-- ======================== -->
 
-**Merci de bien lire ces explications avant de démarrer**
+<!-- **Merci de bien lire ces explications avant de démarrer** -->
 
-Le TD aura lieu sur les BBB (BigBlueButton) transmis sur le canal Discord du cours. Il y aura 2 salons :
+<!-- Le TD aura lieu sur les BBB (BigBlueButton) transmis sur le canal Discord du cours. Il y aura 2 salons : -->
 
-* Un salon "CSC", le général, auquel vous devez tous vous connecter en mode micro (mute, mais micro prêt à être activé) et rester tout le long de la séance, qui servira pour les annonces et discussions générales. Il sera limité à ces discussions générales, vous devez garder le son allumé pour entendre les moments d'annonce (ils ne seront pas annoncés à l'écrit, mais le canal vocal de ce BBB général sera suffisamment calme pour que vous puissiez le garder allumé tout le long sans être déconcentrés dans votre travail).
-* Un salon "Bureau", audio-vidéo également, dans lequel l'enseignant sera en permanence en écoute, et qui est donc l'endroit où aller pour lui poser des questions (et, ainsi, ne pas polluer le général). Vous pouvez rejoindre ce second salon sans quitter le général.
+<!-- * Un salon "CSC", le général, auquel vous devez tous vous connecter en mode micro (mute, mais micro prêt à être activé) et rester tout le long de la séance, qui servira pour les annonces et discussions générales. Il sera limité à ces discussions générales, vous devez garder le son allumé pour entendre les moments d'annonce (ils ne seront pas annoncés à l'écrit, mais le canal vocal de ce BBB général sera suffisamment calme pour que vous puissiez le garder allumé tout le long sans être déconcentrés dans votre travail). -->
+<!-- * Un salon "Bureau", audio-vidéo également, dans lequel l'enseignant sera en permanence en écoute, et qui est donc l'endroit où aller pour lui poser des questions (et, ainsi, ne pas polluer le général). Vous pouvez rejoindre ce second salon sans quitter le général. -->
 
-Sur le BBB général, gardez bien le panneau de gauche ouvert et si possible visible, avec la liste des utilisateurs, et consultez-le régulièrement : c'est ici que vous recevrez les messages privés (des enseignants ou des autres étudiants, relatifs aux messages échangés comme vous le verrez dans la suite du sujet).
+<!-- Sur le BBB général, gardez bien le panneau de gauche ouvert et si possible visible, avec la liste des utilisateurs, et consultez-le régulièrement : c'est ici que vous recevrez les messages privés (des enseignants ou des autres étudiants, relatifs aux messages échangés comme vous le verrez dans la suite du sujet). -->
 
-Lors des communications à faire avec l'enseignant ou avec d'autres étudiants (décrites dans la suite du sujet), passez bien par ces messages privés BBB afin de ne pas polluer le canal de discussion général : clic sur le nom de la personne, "Démarrer une conversation privée".
+<!-- Lors des communications à faire avec l'enseignant ou avec d'autres étudiants (décrites dans la suite du sujet), passez bien par ces messages privés BBB afin de ne pas polluer le canal de discussion général : clic sur le nom de la personne, "Démarrer une conversation privée". -->
 
 Génération de clés RSA
 ======================
@@ -39,9 +39,10 @@ Nous allons commencer par générer une paire de clés RSA pour chacun. Voici l'
 * Déterminer l'inverse modulaire _d &equiv; e<sup>-1</sup> mod &phi;(n)_. Vous pouvez utiliser [DCODE](https://www.dcode.fr/inverse-modulaire) pour cela (attention, pas le `pow` Python pour ça, sauf si vous êtes *certain* d'avoir python 3.8 !) <!-- Vous pouvez utiliser [Wolfram Alpha](http://www.wolframalpha.com), avec une requête de la forme `7 ^ -1 mod 1147` (attention, pas le `pow` Python pour ça !) -->
 * La clé publique est _(e,n)_ et la clé privée est _(d,n)_
 
-**[Distanciel]** Gardez votre clé privée secrète et transmettez votre clé publique à l'enseignant via un _message privé_ dans BBB. Elle sera inscrite dans le registre tenu par l'enseignant et affiché par BBB (la "PKI").
+<!-- **[Distanciel]** Gardez votre clé privée secrète et transmettez votre clé publique à l'enseignant via un _message privé_ dans BBB. Elle sera inscrite dans le registre tenu par l'enseignant et affiché par BBB (la "PKI"). -->
 
-**[Présentiel]** Gardez votre clé privée secrète et inscrivez votre clé publique sur la liste commune au groupe. Cette liste constitue la PKI du groupe. 
+<!-- **[Présentiel]**  -->
+Gardez votre clé privée secrète et inscrivez votre clé publique sur la liste commune au groupe. Cette liste constitue la PKI du groupe. 
 
 Les exemples dans la suite du sujet sont réalisés avec p=31, q=37, n=1147, &phi;(n)=1080, e=7, d=463. La clé publique est _(e,n)_, ici _(7,1147)_, et la clé privée est _(d,n)_, ici _(463,1147)_.
 
@@ -116,16 +117,16 @@ Vous allez maintenant transmettre un message clair (non chiffré) signé à un a
 3. **Réception d'un message** : À la réception d'un message, appliquez l'algorithme de vérification de la signature. Le message reçu est-il intègre ? Si non, quelle attaque avez-vous détectée ?
 
 
-Attaques sur le cryptosystème proposé
-=====================================
+<!-- Attaques sur le cryptosystème proposé -->
+<!-- ===================================== -->
 
-Étudiez et testez quelques attaques sur le système mis en place :
+<!-- Étudiez et testez quelques attaques sur le système mis en place : -->
 
-* Modification de message en conservant la validité de la signature
-* Attaque de la clé privée (par factorisation de _n_ par exemple)
+<!-- * Modification de message en conservant la validité de la signature -->
+<!-- * Attaque de la clé privée (par factorisation de _n_ par exemple) -->
 
 
-Toutes ces attaques sont possibles ici. Réfléchissez à leur cause et aux protections mises en place dans les cryptosystèmes réels. Implémentez une (ou plusieurs) attaque dans le langage de votre choix, proposez une contre-mesure et évaluez la complexité rajoutée par votre contre-mesure.
+<!-- Toutes ces attaques sont possibles ici. Réfléchissez à leur cause et aux protections mises en place dans les cryptosystèmes réels. Implémentez une (ou plusieurs) attaque dans le langage de votre choix, proposez une contre-mesure et évaluez la complexité rajoutée par votre contre-mesure. -->
 
 
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/2.0/fr/"><img alt="Licence Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/2.0/fr/88x31.png" /></a><br />Ce(tte) œuvre est mise à disposition selon les termes de la <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/2.0/fr/">Licence Creative Commons Attribution - Pas d’Utilisation Commerciale - Partage dans les Mêmes Conditions 2.0 France</a>.

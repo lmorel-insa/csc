@@ -21,6 +21,9 @@ $(OUTDIR)/%.html: %.md $(OUTDIR)
 $(OUTDIR)/%.pdf: $(OUTDIR)/%.html
 	wkhtmltopdf $< $@
 
+td2: $(OUTDIR)/td2-jdr.pdf
+
+
 clean:
 	\rm -rf *.html *.pdf $(OUTDIR)
 

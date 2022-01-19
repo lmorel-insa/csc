@@ -103,45 +103,23 @@ hyperref={pdfpagelabels=false}
 \section{Context}
 
 \begin{frame}
-  \frametitle{Cryptographie}
+  \frametitle{Previously}
+  \begin{itemize}
+  \item Cesear Cipher
+  \item One-Time Pads 
+  \item Enigma
+  \item \textbf{Cryptology = Cryptography + Cryptanalysis}
+  \end{itemize}
 \end{frame}
 
 
 \begin{frame}
-  \frametitle{Objectives}
-
+  \frametitle{Today's objectives}
   \begin{itemize}
   \item Encryption / Decryption (Confidentiality)
   \item Verification (Integrity)
   \item Signature (Authenticity)
   \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{One-Time Pads}
-
-  \begin{itemize}
-  \item On se souvient de comment ça marche.
-  \item On se souvient des limites principales:
-    \begin{itemize}
-    \item la clé (l'OTP) doit être aussi grande que le message.
-    \item Générer du ``Vrai'' random c'est dur. 
-    \end{itemize}
-  \item On fait remarquer qu'une force des OTPs qu'on veut
-    ``retrouver'' (même si un peu moins forte) c'est que le chiffré ne
-    doit pas faire ressortir de ``régularité statistique'' du
-    plaintext.
-  \end{itemize}
-\end{frame}
-
-
-\begin{frame}
-  \frametitle{One-Time Pads}
-
-  On se souvient par contre que le One-Time Pad est ``parfait'' en terme de sécurité. On va donc chercher à construire des crypto-systèmes qui soient ``également'' parfaits.
-
-  D'abord on définit les propriétés de telles systèmes: Kerchoffs et Shannon
-  
 \end{frame}
 
 
@@ -196,7 +174,7 @@ hyperref={pdfpagelabels=false}
   
 \end{frame}
 
-\section{Symmetric Encryption}
+\section{Symmetric Cryptography}
 
 
 \begin{frame}
@@ -799,11 +777,11 @@ void AES_Run_secure(void){
   \item $\lambda(n) = lcm(p-1, q-1)$
   \item $= \lambda(3233) = lcm(60,52) = 780$
   \item Choose $1<e<780$ (coprime to $780$), eg $e=17$
-  \item $d = e^-1 \mbox{ mod } \lambda(n)$
+  \item $d = e^{-1} \mbox{ mod } \lambda(n)$
   \item $= 413$ (as $1 = 17 * 413 \mbox{ mod } 780$)
-  \item Public key = $(e = 17, n = 3233)$
+  \item \fbox{Public key = $(e = 17, n = 3233)$}
+  \item \fbox{Private key = $(d = 413, m = 3233)$}
   \item $c(m) = m^{17} \mbox { mod } 3233$
-  \item Private key = $(d = 413, m = 3233)$
   \item $m(c) = c^{413} mod 3233$
   \item $m = 65 \rightarrow c = 65^{17} \mbox{ mod } 3233 = 2790$
   \item $2790 \rightarrow m = 2790^{413} \mbox{ mod } 3233 = 65$
@@ -878,7 +856,15 @@ void AES_Run_secure(void){
   
 \end{frame}
 
+\begin{frame}
+  \frametitle{Next time}
 
+  \begin{itemize}
+  \item Cryptographic protocols
+  \item Public Key Authorities
+  \item ...
+  \end{itemize}
+\end{frame}
 
 
 \end{document}
