@@ -168,7 +168,6 @@ hyperref={pdfpagelabels=false}
   \item Use recognized libraries (eg OpenSSL), not your own implementation
   \item Prefer open-source implementations (easier to identify bugs and backdoors)\footnote{\url{https://www.theguardian.com/world/2013/sep/05/nsa-how-to-remain-secure-surveil}lance}
   \item In this class, a lot of simplified versions (same on wikipedia)
-  \item 
   \end{itemize}
 
   
@@ -416,7 +415,7 @@ hyperref={pdfpagelabels=false}
   \begin{itemize}
   \item Standardized in 1998 to compensate for the weaknesses of DES
   \item DES has a 56-bits key
-  \item 3DES chains 3 DES together:
+  \item 3DES \textbf{chains 3 DES together}:
     \begin{itemize}
     \item Encrypt =  Encrypt($k_1$)$\rightarrow$Decrypt($k_2$)$\rightarrow$Encrypt($k_1$)
     \item Decrypt = Decrypt($k_1$)$\rightarrow$Encrypt($k_2$)$\rightarrow$Decrypt($k_2$)
@@ -440,7 +439,7 @@ hyperref={pdfpagelabels=false}
     \item IBM proposed MARS
     \item RSA proposed RC6
     \item Serpent by Anderson, Bihman, Knudsen
-    \item Twofish by Cruce Schneier et al
+    \item Twofish by Bruce Schneier et al
     \item Rijndael, by Daemen and Rijmen
     \end{itemize}
   \item Rijndael's was elected by community after a thourough international comparative effort (including NSA, companies, academics), based on security, performance (speed, memory usage).
@@ -808,6 +807,29 @@ void AES_Run_secure(void){
 \end{frame}
 
 
+\begin{frame}
+  \frametitle{Key management}
+
+  \begin{block}{The key distribution problem}
+    \begin{itemize}
+    \item To encrypt a message or check a signature, Alice needs Bob's public key
+    \item Otherwise, it may encrypt a message thinking only Bob will read it, but maybe Charlie can read it instead
+    \item How can she get this public key in a secure manner? 
+    \item Hard problem, no perfect solution
+    \item[Note: ] Using the right key guarantees Bob \textbf{is} Bob, but not that Bob is honnest ... 
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Existing solutions}
+    \begin{itemize}
+    \item Hierarchical certification authorities
+    \item Web of trust (eg PGP)
+    \item Direct exchange of keys
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+
 \section{Hybrid Cryptography}
 
 \begin{frame}
@@ -862,7 +884,7 @@ void AES_Run_secure(void){
   \begin{itemize}
   \item Cryptographic protocols
   \item Public Key Authorities
-  \item ...
+  \item PGP
   \end{itemize}
 \end{frame}
 

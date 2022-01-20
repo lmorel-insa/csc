@@ -53,7 +53,7 @@ Pour interagir/discuter/commenter/poser des questions en dehors des heures de co
 
 Le cours (pour les séances de travail personnel) est [ici](cours.md)
 
-Les notes de CM : [CM1 (intro)](CM/handout/intro.pdf) / CM2 (Bases) (TBA) / CM3 (protocoles) (TBA)
+Les notes de CM : [CM1 (intro)](CM/handout/intro.pdf) / [CM2 (Bases) (TBA)](CM/handout/principles.pdf) / CM3 (protocoles) (TBA)
 
 Les TD : [TD2 (JdR)](td2-jdr.md) / [TD3 (Passwords)](td3-passwords.md) / [TD4 (CA)](td4-ca.md) / [TD5 (DANE/PGP)](td5-danepgp.md)
 
