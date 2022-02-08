@@ -28,7 +28,7 @@ Allez vraiment lire la ressource donnée dans le cours [Bortzmeyer](http://www.b
 
 1. <details><summary>Qui héberge le contenu de la zone `'.fr'` ?</summary>L'AFNIC (un registry)</details>
 2. <details><summary>Qui vend le service d'enregistrer un `'.fr'` ?</summary>OVH, Gandi, etc. (des registrars)</details>
-3. <details><summary>Quelle chaîne commerciale/interactions d'un possesseur de nom de domaine à un registry ?</summary>INSA Lyon cliente d'un registrar (Gandi par exemple), ce registrar en interaction avec un grand nombre de registries (Afnic par exemple, un registry par extension/TLD proposé (plus ou moins)) </details>
+3. <details><summary>Décrivez la chaîne commerciale (ie les interactions) entre un possesseur de nom de domaine et un registry ?</summary>INSA Lyon cliente d'un registrar (Gandi par exemple), ce registrar en interaction avec un grand nombre de registries (Afnic par exemple, un registry par extension/TLD proposé (plus ou moins)) </details>
 3. <details><summary>Pour résoudre `www.insa-lyon.fr`, quels acteurs sont impliqués ?</summary>L'ICANN pour donner l'IP de `.fr`, l'AFNIC pour donner l'IP de `insa-lyon.fr`, l'INSA Lyon pour donner l'IP de `www.insa-lyon.fr`</details>
 
 
