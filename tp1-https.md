@@ -2,6 +2,9 @@
 
 _Lionel Morel ([lionel.morel@insa-lyon.fr](mailto:lionel.morel@insa-lyon.fr))_
 
+Introduction
+=============
+
 <!-- TODO
 Une CA préconfigurée (et donc dans le TP, il faut l'opérer) et déjà reconnue par les browsers
 Un certificat de nouvelle CA diffusé dans une maj de browser
