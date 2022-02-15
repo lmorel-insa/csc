@@ -85,6 +85,20 @@ hyperref={pdfpagelabels=false}
   \maketitle
 \end{frame}
 
+
+\begin{frame}
+  \frametitle{A FAIRE AVANT LE PREMIER COURS}
+
+  \begin{itemize}
+  \item \textbf{Vérifier} que tous les TODOs sont traités
+  \item Préparer des notes autour des slides pour :
+    \begin{itemize}
+    \item les anecdotes
+    \item le choix de l'ordre des description de certains exemples
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
 \section{Context}
 
 \begin{frame}
@@ -156,6 +170,11 @@ hyperref={pdfpagelabels=false}
     undetected manner. Also called \textbf{anti-tampering}.
   \item \textbf{Availability}: Information is available when it is needed.
   \end{itemize}
+
+  \begin{center}
+    \includegraphics[scale=0.15]{CIA.png}
+  \end{center}
+  
 \end{frame}
 
 
@@ -208,59 +227,99 @@ hyperref={pdfpagelabels=false}
   \end{itemize}
 \end{frame}
 
-\begin{frame}
-  \frametitle{Threats and attack techniques - Examples}
+% \begin{frame}
+%   \frametitle{Threats and attack techniques - Examples}
 
+%   \begin{itemize}
+%   \item Eavesdropping, Trojans, Worms, Viruses
+%   \item Buffer Overflows, Spoofing, MITM attacks, Replay attacks, 
+%   \item Shoulder surfing, Dumpster diving, 
+%   \item Password attacks (brute-force, dictionary based), malicious-code attacks, 
+%   \item Side-channel attacks: cache, timing, power-monitoring, etc.
+%   \end{itemize}
+% \end{frame}
+
+
+
+\begin{frame}[fragile]
+  \frametitle{Attack Examples}
   \begin{itemize}
-  \item Eavesdropping, Trojans, Worms, Viruses
-  \item Buffer Overflows, Spoofing, MITM attacks, Replay attacks, 
-  \item Shoulder surfing, Dumpster diving, 
-  \item Password attacks (brute-force, dictionary based), malicious-code attacks, 
-  \item Side-channel attacks: cache, timing, power-monitoring, etc.
+  \item Trojan: a malevolent binary that pretends to be something else
+  \item Worm: self-replicates to propagate to other computer hosts
+  \item Virus: replicates itself by modifying other programs to insert its own code
+  \item Buffer Overflow: use adjacent placement of data in memory to modify some private data by writing to public data:
+    \begin{center}
+      \includegraphics[scale=0.3]{bufferOverflow-final.png}
+\begin{verbatim}
+char           A[8] = "";
+unsigned short B    = 1979;
+...
+strcpy(A, "excessive");
+\end{verbatim}
+      \includegraphics[scale=0.3]{bufferOverflow-final.png}
+    \end{center}
+  \item Spoofing, Man-in-the-Middle Attack, Replay
   \end{itemize}
 \end{frame}
 
 
+\begin{frame}
+  \frametitle{Reverse Engineering}
+  \begin{center}
+    \includegraphics[width=\textwidth,height=0.9\textheight,keepaspectratio]{reverse.pdf}
+  \end{center}
+\end{frame}
 
 \begin{frame}
-  \frametitle{}
-  Quelques définitions:
-  \begin{itemize}
-  \item Trojan
-  \item Worm
-  \item Virus
-  \item Buffer Overflow
-  \item Spoofing
-  \item Man-in-the-Middle Attack
-  \item Replay
-  \end{itemize}
+  \frametitle{Physical Attack Examples}
 
-
-  NB: donner 2 lignes pour chaque mot-clé. 
+  \only<1>{\includegraphics[width=\textwidth,height=0.9\textheight,keepaspectratio,page=1]{IoTGoesNuclear.pdf}}
+  \only<2>{\includegraphics[width=\textwidth,height=0.9\textheight,keepaspectratio,page=2]{IoTGoesNuclear.pdf}}
   
 \end{frame}
+
+
+\begin{frame}
+  \frametitle{Physical Attack Examples}
+  \begin{minipage}{.3\linewidth}
+    \includegraphics[width=\textwidth,height=0.9\textheight,keepaspectratio]{stm32-EM.png}
+  \end{minipage}
+  \hfill
+    \begin{minipage}{.3\linewidth}
+      \includegraphics[width=\textwidth,height=0.9\textheight,keepaspectratio]{unprotected.png}
+  \end{minipage}
+\end{frame}
+
 
 \begin{frame}
   \frametitle{Defenses - a quick panorama}
   \begin{itemize}
-  \item Cryptography
-  \item Secured communication protocols
-  \item Code and Data Encryption
+  \item Cryptography: how to encrypt data
+  \item Secured communication protocols: how to encrypt data + share keys + 
   \item Physical shielding
   \item White-box cryptography    
   \end{itemize}
 \end{frame}
 
 
+
+
+
+
 \begin{frame}[fragile]
   \frametitle{Definition - Communication Security}
-
   \begin{block}{}
     \begin{center}
       \includegraphics[scale=1]{commSecurity.pdf}
     \end{center}
     \footnote{inspiration: \url{https://en.wikipedia.org/wiki/Communications_security}}
   \end{block}
+
+  \begin{center}
+    \includegraphics[scale=0.15]{CIA.png}
+  \end{center}
+  
+  
 \end{frame}
 
 
@@ -291,19 +350,48 @@ hyperref={pdfpagelabels=false}
 \end{frame}
 
 
-\begin{frame}
-  \frametitle{A rajouter dans l'historique}
 
-  Je repique du cours de François:
+\begin{frame}
+  \frametitle{History (1) The Skytale}
   \begin{itemize}
-  \item La scytale
-  \item Vigenère (mais j'ai pas encore compris)
-  \item Vername (idem)
-  \item Principe de Kerchoffs
-  \item Confusion/Diffusion (Shannon 1949)
+  \item Oldest cryprtographic device known (-404 BC)
+  \item Write a message on a leather strap
+  \item Wrap the strap around a rod with correct diameter (that's the key)
   \end{itemize}
+
+  \begin{center}
+    \includegraphics[scale=0.4]{Skytale.png}
+  \end{center}
   
 \end{frame}
+
+
+\begin{frame}
+  \frametitle{TODO}
+
+  Expliquer d'autres éléments d'histoire, d'autres exemples de chiffrement.
+
+  Consolider la présentation d'Enigma
+
+  Finir par l'intro du cours suivant ! 
+  
+  
+\end{frame}
+
+
+% \begin{frame}
+%   \frametitle{A rajouter dans l'historique}
+
+%   Je repique du cours de François:
+%   \begin{itemize}
+%   \item La scytale
+%   \item Vigenère (mais j'ai pas encore compris)
+%   \item Vername (idem)
+%   \item Principe de Kerchoffs
+%   \item Confusion/Diffusion (Shannon 1949)
+%   \end{itemize}
+  
+% \end{frame}
 
 
 \begin{frame}
@@ -340,6 +428,45 @@ hyperref={pdfpagelabels=false}
     particular, what's the difference between a foreign language and
     an encrypted language, if you can't read the first).
   \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{General case: Substitution cipher}
+
+  \begin{itemize}
+  \item Replace a letter by another\\
+    \verb+ABCDEFGHIJKLMNOPQRSTUVWXYZ+\\
+    \verb+AZERTYUIOPQSDFGHJKLMWXCVBN+    
+  \item Attack: frequency analysis\\
+    Each letter in a given language has a specific occurrence frequency
+  \end{itemize}
+
+  \begin{center}
+    \includegraphics[scale=0.3]{freqChart-EN.png}
+  \end{center}
+  
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Vigenère cipher}
+
+  \begin{itemize}
+  \item Invented XVIth century
+  \item The key gives the sequence of substitutions to use
+  \item ABC means ``shift by 1, then 2, then 3 characters''
+  \item Attack (XIXth):
+    \begin{itemize}
+    \item Determine key length (by looking for repetitions in the key)
+    \item Frequency analysis for each shift value
+    \end{itemize}
+  \end{itemize}
+  
+  \begin{center}
+    \includegraphics[scale=0.15]{vigenere.png}
+  \end{center}
+  
 \end{frame}
 
 
