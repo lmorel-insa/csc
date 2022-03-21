@@ -23,6 +23,8 @@ $(OUTDIR)/%.pdf: $(OUTDIR)/%.html
 
 td2: $(OUTDIR)/td2-jdr.pdf
 
+td5: $(OUTDIR)/td5-danepgp.pdf
+
 
 clean:
 	\rm -rf *.html *.pdf $(OUTDIR)
