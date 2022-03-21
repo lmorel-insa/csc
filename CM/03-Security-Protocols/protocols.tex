@@ -78,9 +78,6 @@ hyperref={pdfpagelabels=false}
   \maketitle
 \end{frame}
 
-\section{Context}
-
-
 \begin{frame}
   \frametitle{Symmetric Cryptography}
 
@@ -185,35 +182,159 @@ hyperref={pdfpagelabels=false}
   A PKI consists of: 
   \begin{itemize}
   \item A \textbf{Certificate Authority} (CA) - stores, issues and signs digital certificates
-  \item A \textbf{Registrtion Authority} (RA) - verifies identity of entities requesting their certificates to be stored at the CA. 
+  \item A \textbf{Registration Authority} (RA) - verifies identity of entities requesting their certificates to be stored at the CA. 
   \item A \textbf{Central Directory} - secure location to store keys 
   \end{itemize}
 
   \begin{itemize}
-  \item CAs are ``Trusted Third Party''
+  \item CAs are ``Trusted Third Parties''
   \end{itemize}
-
-  
 \end{frame}
 
 
-% \begin{frame}
-%   \frametitle{Certificate Authorities}
-%   \begin{itemize}
-%   \item 
-%   \end{itemize}
-% \end{frame}
+\begin{frame}
+  \frametitle{Certificate Authorities}
+  \begin{center}
+    \only<1>{\includegraphics[width=\textwidth,page=1]{fig/CA.pdf}}
+    \only<2>{\includegraphics[width=\textwidth,page=2]{fig/CA.pdf}}
+    \only<3>{\includegraphics[width=\textwidth,page=3]{fig/CA.pdf}}
+    \only<4>{\includegraphics[width=\textwidth,page=4]{fig/CA.pdf}}
+    \only<5>{\includegraphics[width=\textwidth,page=5]{fig/CA.pdf}}
+  \end{center}
+\end{frame}
 
 
-% \begin{frame}
-%   \frametitle{DANE}
-% \end{frame}
+
+\begin{frame}
+  \frametitle{DNS}
+
+  \begin{center}
+    \includegraphics[width=\textwidth,page=5]{fig/dns.png}
+  \end{center}
+ 
+  \begin{itemize}
+  \item The \textbf{ICANN} (Internet Corporation for Assigned Names and Numbers) manages a list of \textbf{Top-Level Domains}
+    \begin{itemize}
+    \item .com .fr .net .uk
+    \item 1 TLD/country, some general ones
+    \end{itemize}
+  \item Each TLD is managed by (exactly) one Registry:
+    \begin{itemize}
+    \item .fr: AFINC
+    \item .com: verysign
+    \end{itemize}
+  \item Each registry authorizes several \textbf{registrars} to sell domain names
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \begin{minipage}{.2\linewidth}
+    {\tiny
+\begin{verbatim}
+whois insa-lyon.fr    
+%%
+%% This is the AFNIC Whois server.
+%%
+%% complete date format : YYYY-MM-DDThh:mm:ssZ
+%% short date format    : DD/MM
+%% version              : FRNIC-2.5
+%%
+%% Rights restricted by copyright.
+%% See https://www.afnic.fr/en/products-and-services/services/whois/whois-special-notice/
+%%
+%% Use '-h' option to obtain more information about this service.
+%%
+%% [77.134.1.180 REQUEST] >> -V Md5.5.10 insa-lyon.fr
+%%
+%% RL Net [##########] - RL IP [#########.]
+%%
+
+domain:      insa-lyon.fr
+status:      ACTIVE
+hold:        NO
+holder-c:    INSA12-FRNIC
+admin-c:     SJ7971-FRNIC
+tech-c:      GRST1-FRNIC
+tech-c:      LM19215-FRNIC
+tech-c:      TP630-FRNIC
+zone-c:      NFC1-FRNIC
+nsl-id:      NSL1519-FRNIC
+registrar:   GIP RENATER
+Expiry Date: 2022-12-31T23:00:00Z
+created:     1994-12-31T23:00:00Z
+last-update: 2021-12-31T23:36:35Z
+source:      FRNIC
+\end{verbatim}
+    }
+  \end{minipage}
+\end{frame}
 
 
-% \begin{frame}
-%   \frametitle{PGP}
-% \end{frame}
+\begin{frame}[fragile]
+  \begin{minipage}{.2\linewidth}
+    {\tiny
+\begin{verbatim}
+ns-list:     NSL1519-FRNIC
+nserver:     dns.univ-lyon1.fr
+nserver:     dns2.univ-lyon1.fr
+source:      FRNIC
 
+registrar:   GIP RENATER
+type:        Isp Option 1
+address:     Array
+address:     75013 PARIS
+country:     FR
+phone:       +33 1 53 94 20 30
+fax-no:      +33 1 53 94 20 31
+e-mail:      domaine@renater.fr
+website:     http://www.renater.fr
+anonymous:   NO
+registered:  1998-01-01T12:00:00Z
+source:      FRNIC
+
+nic-hdl:     INSA12-FRNIC
+type:        ORGANIZATION
+contact:     INSTITUT NAT SCIENCES APPLIQUEES LYON
+address:     INSA LYON
+address:     20, avenue Albert Einstein
+address:     69621 Villeurbanne
+country:     FR
+phone:       +33 4 72 43 81 14
+fax-no:      +33 4 72 43 85 00
+e-mail:      webmaster@insa-lyon.fr
+registrar:   GIP RENATER
+changed:     2016-06-07T11:59:36Z nic@nic.fr
+anonymous:   NO
+obsoleted:   NO
+eligstatus:  not identified
+reachstatus: not identified
+source:      FRNIC
+\end{verbatim}
+    }
+  \end{minipage}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{DNSSEC key management (1)}
+
+  \begin{center}
+    \includegraphics[width=\textwidth]{fig/DNS-keysharing.pdf}
+  \end{center}
+   
+\end{frame}
+
+
+
+\begin{frame}
+  \frametitle{DNSSEC key management (2)}
+
+
+  \begin{center}
+    \includegraphics[width=\textwidth]{fig/DNSSEC.pdf}
+  \end{center}
+   
+\end{frame}
 
 
 \begin{frame}
@@ -226,9 +347,9 @@ hyperref={pdfpagelabels=false}
     \item Current version 1.3 (2018)
     \end{itemize}
   \item TLS stands for Transport Layer Security
-  \item It supercedes SSL 
+  \item It supersedes SSL 
   \item Works on top of TCP/IP
-  \item Application-indenpendant, etg: HTTPs = HTTP+TLS, IMAPS = IMAP+TLS
+  \item Application-independent, eg: HTTPs = HTTP+TLS, IMAPS = IMAP+TLS
   \end{itemize}
 \end{frame}
 
@@ -258,7 +379,7 @@ hyperref={pdfpagelabels=false}
 
   \begin{itemize}
   \item Client and server \textbf{agree to use TLS}
-  \item They perform a \textbf{handshare procedure} together (see next)
+  \item They perform a \textbf{handshake procedure} together (see next)
   \item Out of this handshake, they get (secret) encryption keys they can then use to perform \textbf{symmetric encryption}
   \end{itemize}
  
@@ -394,7 +515,7 @@ hyperref={pdfpagelabels=false}
 
 
 \begin{frame}
-  \frametitle{Needham-Schroeder Public-Key Protocol}
+  \frametitle{Needham-Schroeder Public-Key (Asymetric) Protocol}
 
   A: $(k_{PA}, k_{SA})$    B: $(k_{PB}, k_{SB})$      S: $(k_{PS}, k_{SS})$  
 
@@ -427,7 +548,12 @@ hyperref={pdfpagelabels=false}
   \frametitle{Kerberos architecture (1)}
   
   \begin{center}
-    \includegraphics[width=\textwidth]{kerberos.pdf}
+    \only<1>{\includegraphics[width=\textwidth,page=1]{kerberos.pdf}}
+    \only<2>{\includegraphics[width=\textwidth,page=2]{kerberos.pdf}}
+    \only<3>{\includegraphics[width=\textwidth,page=3]{kerberos.pdf}}
+    \only<4>{\includegraphics[width=\textwidth,page=4]{kerberos.pdf}}
+    \only<5>{\includegraphics[width=\textwidth,page=5]{kerberos.pdf}}
+    \only<6>{\includegraphics[width=\textwidth,page=6]{kerberos.pdf}}
   \end{center}  
 
 \end{frame}
@@ -437,7 +563,13 @@ hyperref={pdfpagelabels=false}
   \frametitle{Kerberos architecture (2)}
   
   \begin{center}
-    \includegraphics[width=\textwidth]{kerberos-2.pdf}
+    \only<1>{\includegraphics[width=\textwidth,page=1]{kerberos-2.pdf}}
+    \only<2>{\includegraphics[width=\textwidth,page=2]{kerberos-2.pdf}}
+    \only<3>{\includegraphics[width=\textwidth,page=3]{kerberos-2.pdf}}
+    \only<4>{\includegraphics[width=\textwidth,page=4]{kerberos-2.pdf}}
+    \only<5>{\includegraphics[width=\textwidth,page=5]{kerberos-2.pdf}}
+    \only<6>{\includegraphics[width=\textwidth,page=6]{kerberos-2.pdf}}
+    \only<7>{\includegraphics[width=\textwidth,page=7]{kerberos-2.pdf}}
   \end{center}  
 
 \end{frame}
@@ -474,7 +606,7 @@ hyperref={pdfpagelabels=false}
 \begin{block}{Key management is the crux}
 	\begin{itemize}
 		\item Without the correct key, cryptography is useless!
-		\item With the correct key, cryptography only garnaties the security of the connexion (not outsiders' truthfulness)\ldots)
+		\item With the correct key, cryptography only garanties the security of the connexion (not outsiders' truthfulness)\ldots)
 	\end{itemize}
 \end{block}
 
