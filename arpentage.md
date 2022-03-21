@@ -14,7 +14,7 @@ Liste de sujets proposés :
 * Des applications et usages : Signal+Telegram (ou séparément), Threema, Matrix/Riot, Olvid, Briar, Delta Chat
 * Des outils PKI : Protocole ACME (Let's Encrypt), Certificate Transparency, PGP poisoning, Keybase.io, clé racine DNSSEC (génération, rollover)
 
-Pour chaque sujet choisi, faire un framapad et l'enregistrer sur ce [framapad d'index](https://mensuel.framapad.org/p/9etp-a67jx5l944).
+Pour chaque sujet choisi, faire un framapad et l'enregistrer sur ce [framapad d'index](https://semestriel.framapad.org/p/Arpentage-CSC).
 
 <!--
 https://emilymstark.com/2020/07/20/certificate-transparency-a-birds-eye-view.html
