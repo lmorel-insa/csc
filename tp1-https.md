@@ -51,6 +51,9 @@ Pour vous connecter à une machine :
 
 Toutes les machines ont les deux comptes suivants : debian/debian et root/root (login/mot de passe).
 
+NB: de manière générale, `./mi-lxc.py display target-dmz` vous connecte toujours sous le compte utilisateur debian (qui n'a pas les droits root). Pour modifier les fichiers systèmes, vous pouvez taper `./mi-lxc.py root@display target-dmz`
+
+
 **L'objectif du TP est de permettre à la machine isp-a-home de naviguer de manière sécurisée sur le site `www.target.milxc` (hébergé sur la machine target-dmz).**
 
 > Si la souris reste bloquée dans une fenêtre virtuelle, appuyez sur CTRL+SHIFT pour la libérer.
