@@ -53,7 +53,6 @@ Voici la liste des questions :
 * Acceptez-vous de donner vos informations à Facebook et autres GAFA ? Aux institutions étatiques ? Pourquoi ?
 * Quelle est votre perception des évolutions récentes ? Qui des informations collectées dans le cadre des lois "sanitaires" ?
 * Quel rôle vous voyiez vous tenir sur ces questions en tant que futur ingénieur ? 
-\end{itemize}
 
 
 Bases de la crypto

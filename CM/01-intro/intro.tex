@@ -37,13 +37,52 @@ hyperref={pdfpagelabels=false}
 
 \usepackage{picture}
 \usepackage{pgfplots}
-\usepackage{filecontents}
+% \usepackage{filecontents}
 % \pgfplotsset{compat=1.12}
 \usepackage{pdflscape}
 
 \beamertemplatenavigationsymbolsempty
 
 \newcommand{\travail}{\textbf{ICI IL Y A D TRAVAIL!}}
+
+\usepackage{listings}
+\makeatletter
+\lstset{
+  language={C},
+  frame=single,
+  basicstyle=\lst@ifdisplaystyle\tiny\fi\ttfamily,
+  columns=fullflexible,
+  keepspaces=true,
+  keywordstyle=\color{blue}
+}
+
+\usepackage{pdfcomment}
+\newcommand{\pdfnote}[1]{\marginnote{\pdfcomment[icon=note]{#1}}}
+
+
+\newcommand\Wider[2][5em]{%
+\makebox[\linewidth][c]{%
+  \begin{minipage}{\dimexpr\textwidth+#1\relax}
+  \raggedright#2
+  \end{minipage}%
+  }%
+}
+
+
+\AtBeginSection[]{
+    \begin{frame}
+    \vfill
+    \centering
+    \begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{section page}
+        \usebeamerfont{title}%
+        {\Huge \insertsectionhead}\par
+    \end{beamercolorbox}
+    \vfill
+    \end{frame}
+}
+
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%% PRESENTATION INFO %%%%%
@@ -85,25 +124,40 @@ hyperref={pdfpagelabels=false}
   \maketitle
 \end{frame}
 
+% \begin{frame}[fragile]
+%   \frametitle{A FAIRE AVANT LE PREMIER COURS}
+
+%   \begin{itemize}
+%   \item \textbf{Vérifier} que tous les TODOs sont traités
+%   \item Préparer des notes autour des slides pour :
+%     \begin{itemize}
+%     \item les anecdotes
+%     \item le choix de l'ordre des description de certains exemples
+%     \end{itemize}
+%   \item Ajouter des ``justifications'' au topics:
+%     \begin{itemize}
+%     \item on veut lever le voile sur https,
+%     \item On veut vous faire comprendre que la sécurité c'est bcp
+%       d'aspects différents: la sécurité des communication
+%       (chiffrement), la sécurité des infos de crypto (comment on
+%       génère des clefs et comment on les protège), la sécurité physique. 
+%     \end{itemize}
+%   \item est-ce que je saurais dessiner un panorama des types
+%     d'attaques (à très gros traits). Par exemple en donnant des
+%     exemples des différents types, piochés là :
+%     \url{https://en.wikipedia.org/wiki/Computer_security#Vulnerabilities_and_attacks}
+%   \item Au delà, donner des ``attaques récentes'', par exemple tirées de là :
+%    \url{https://www.schneier.com/}
+%   \end{itemize}
+% \end{frame}
+
+
+
+\section{Introduction}
 
 \begin{frame}
-  \frametitle{A FAIRE AVANT LE PREMIER COURS}
-
-  \begin{itemize}
-  \item \textbf{Vérifier} que tous les TODOs sont traités
-  \item Préparer des notes autour des slides pour :
-    \begin{itemize}
-    \item les anecdotes
-    \item le choix de l'ordre des description de certains exemples
-    \end{itemize}
-  \end{itemize}
-\end{frame}
-
-\section{Context}
-
-\begin{frame}
-  \frametitle{Lecturer - Lionel Morel\footnote{\url{lionel.morel.ouvaton.org/}} (lionel.morel@insa-lyon.fr)}
-  \begin{itemize}
+  \frametitle{Lecturer - Lionel Morel (lionel.morel@insa-lyon.fr)}
+  \Wider{\begin{itemize}
   \item MSc in Computer Science - Grenoble 2001
   \item PhD in CS at INPGrenoble - Programming of Critical Reactive Systems
   \item Associate Professor at INSA Lyon since 2007. 
@@ -113,14 +167,25 @@ hyperref={pdfpagelabels=false}
       concurrency and computations, programming languages, performance
       analysis for parallel multi-core architectures.
     \item at CEA-Grenoble (2017-2020): \textbf{Counter-measures
-        against physical (side-channel, fault-injection, etc) attacks}
+        against physical  attacks (side-channel, fault-injection, etc)}
     \end{itemize}
   \item Current Research: \textbf{operating systems} and programming
-    languages \textbf{for} addressing so-called \textbf{frugality}, Phenix\@ Citi\footnote{\url{https://phenix.citi-lab.fr/}}
+    languages \textbf{for} addressing so-called \textbf{frugality}, Phenix \footnote{\url{https://phenix.citi-lab.fr/}, \url{lionel.morel.ouvaton.org}}
   \item Teaching at the IF department: Computer Architecture,
     Operating Systems, Compiler Construction
   \end{itemize}
+  }
 \end{frame}
+
+
+\begin{frame}
+  \frametitle{Un petit détour}
+
+\end{frame}
+
+
+
+\section{Course Objectives}
 
 
 
@@ -133,15 +198,27 @@ hyperref={pdfpagelabels=false}
   \item Public-key infrastructures
   \item Associated ethical issues
   \end{itemize}
+
+  But:
+  \begin{itemize}
+  \item Security is a vast topic, covered by \textbf{several years} of
+    studies if you want to specialize
+  \item You will not be a specialist, but a \textbf{enlightened neophytes}. 
+  \item[$\Rightarrow$]
+  \item Please don't change cryptography yourself
+  \item \textbf{Go and ask} a specialist
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Course Plan}
 
-  \begin{center}
+  \Wider{\begin{center}
     \includegraphics[width=\textwidth,keepaspectratio]{fig/CoursePlan.pdf}
-  \end{center}  
+  \end{center}}
 \end{frame}
+
+\section{General Considerations}
 
 
 \begin{frame}
@@ -163,7 +240,7 @@ hyperref={pdfpagelabels=false}
   \begin{itemize}
   \item \textbf{Confidentiality}: Information is not made available or
     disclosed to unauthorized individuals, entities, or
-    processes.\footnote{Beckers, K. (2015). Pattern and Security
+    processes.\footnote{\tiny Beckers, K. (2015). Pattern and Security
       Requirements: Engineering-Based Establishment of Security
       Standards.}
   \item \textbf{Integrity}: Information is not modified in an unauthorized or
@@ -211,7 +288,7 @@ hyperref={pdfpagelabels=false}
     \begin{itemize}
     \item Passive (eavesdropping, side-channel, etc)
     \item Active (worm, faults, etc)
-    \item Denial-of-service
+    \item Denial-of-service, ie render the service unusable. 
     \end{itemize}
   \item When the attack is successful, we say the system is \textbf{compromised} 
   \end{itemize}
@@ -227,29 +304,18 @@ hyperref={pdfpagelabels=false}
   \end{itemize}
 \end{frame}
 
-% \begin{frame}
-%   \frametitle{Threats and attack techniques - Examples}
-
-%   \begin{itemize}
-%   \item Eavesdropping, Trojans, Worms, Viruses
-%   \item Buffer Overflows, Spoofing, MITM attacks, Replay attacks, 
-%   \item Shoulder surfing, Dumpster diving, 
-%   \item Password attacks (brute-force, dictionary based), malicious-code attacks, 
-%   \item Side-channel attacks: cache, timing, power-monitoring, etc.
-%   \end{itemize}
-% \end{frame}
-
+\section{The Attacker's Toolbox}
 
 
 \begin{frame}[fragile]
   \frametitle{Attack Examples}
   \begin{itemize}
-  \item Trojan: a malevolent binary that pretends to be something else
-  \item Worm: self-replicates to propagate to other computer hosts
-  \item Virus: replicates itself by modifying other programs to insert its own code
-  \item Buffer Overflow: use adjacent placement of data in memory to modify some private data by writing to public data:
+  \item \textbf{Trojan}: a malevolent binary that pretends to be something else
+  \item \textbf{Worm}: self-replicates to propagate to other computer hosts
+  \item \textbf{Virus}: replicates itself by modifying other programs to insert its own code
+  \item \textbf{Buffer Overflow}: use adjacent placement of data in memory to modify some private data by writing to public data:
     \begin{center}
-      \includegraphics[scale=0.3]{bufferOverflow-final.png}
+      \includegraphics[scale=0.3]{bufferOverflow-init.png}
 \begin{verbatim}
 char           A[8] = "";
 unsigned short B    = 1979;
@@ -258,9 +324,76 @@ strcpy(A, "excessive");
 \end{verbatim}
       \includegraphics[scale=0.3]{bufferOverflow-final.png}
     \end{center}
-  \item Spoofing, Man-in-the-Middle Attack, Replay
+  %\item Spoofing, Man-in-the-Middle Attack, Replay
   \end{itemize}
 \end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Buffer Overflow}
+
+  $\triangleq$ ``Anomaly whereby a program, while writing data to a buffer,
+  overruns the buffer's boundary and overwrites adjacent memory
+  locations.''\footnote{\url{https://en.wikipedia.org/wiki/Buffer_overflow}}
+
+  \begin{itemize}
+  \item Different types: stack-based, heap-based, format-string attack
+  \item Different consequences: private data corruption, arbitrary code execution, etc
+  \end{itemize}
+  \pdfnote{- Private data corruption : c'est l'exemple que je m'apprete a
+  montrer}
+  \pdfnote{- Arbitrary code execution: eg overwrite the return address in
+    the stack frame to point to a code crafted by the attacker}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Buffer Overflow Example}
+  \hspace{-0.7cm}\begin{minipage}{.7\linewidth}
+    \lstinputlisting[firstline=6,lastline=40,firstnumber=1,linewidth=7cm]{../../code/bufover.c}
+  \end{minipage}
+  \hspace{0.2cm}
+  \begin{minipage}{.29\linewidth}
+\small    To test: \\ 
+\verb+gcc bufover.c -o buf+ \\
+\verb+./buf spraythis+ \\
+
+\
+
+outputs:\\
+\verb+buffer content= spraythis+\\
+\verb+secret Buf = this+\\
+  \end{minipage}
+  
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Format-String Attack}
+  $\triangleq$ ``[...] occurs when the submitted data of an input string is evaluated as a command by the application.''\footnote{\url{https://owasp.org/www-community/attacks/Format_string_attack}}
+
+\vfill
+
+  
+  \hspace{-0.7cm}\begin{minipage}{.3\linewidth}
+    \lstinputlisting[firstline=1,lastline=8,firstnumber=1,linewidth=4cm]{../../code/formatstring.c}
+  \end{minipage}
+  \hspace{0.2cm}
+  \begin{minipage}{.6\linewidth}
+\small    To test: \\ 
+\verb+gcc formatstring.c -o formats+ \\
+\verb+./formats "Hello World %p %p %p %p %p %p %p %p"+ \\
+
+\
+
+outputs:\\
+\verb+Hello World %p %p %p %p %p %p %p %p+
+\verb+Hello World 0x1 0x1 0x7fcbf1fdfb23 0x3 0x77 0x7ffc3488ccd8 0x23488ee90 0x2%+
+\end{minipage}
+\end{frame}
+
+
+
 
 
 \begin{frame}
@@ -269,6 +402,8 @@ strcpy(A, "excessive");
     \includegraphics[width=\textwidth,height=0.9\textheight,keepaspectratio]{reverse.pdf}
   \end{center}
 \end{frame}
+
+
 
 \begin{frame}
   \frametitle{Physical Attack Examples}
@@ -279,40 +414,56 @@ strcpy(A, "excessive");
 \end{frame}
 
 
-\begin{frame}
-  \frametitle{Physical Attack Examples}
-  \begin{minipage}{.3\linewidth}
-    \includegraphics[width=\textwidth,height=0.9\textheight,keepaspectratio]{stm32-EM.png}
-  \end{minipage}
-  \hfill
-    \begin{minipage}{.3\linewidth}
-      \includegraphics[width=\textwidth,height=0.9\textheight,keepaspectratio]{unprotected.png}
-  \end{minipage}
-\end{frame}
+% \begin{frame}
+%   \frametitle{Physical Attack Examples}
+%   \begin{minipage}{.3\linewidth}
+%     \includegraphics[width=\textwidth,height=0.9\textheight,keepaspectratio]{stm32-EM.png}
+%   \end{minipage}
+%   \hfill
+%     \begin{minipage}{.3\linewidth}
+%       \includegraphics[width=\textwidth,height=0.9\textheight,keepaspectratio]{unprotected.png}
+%     \end{minipage}
+
+%     % \textbf{ICI IL Y A DU TRAVAIL!!!!!}
+    
+% \end{frame}
+
+
+
+\section{The Defender's Toolbox}
+
 
 
 \begin{frame}
   \frametitle{Defenses - a quick panorama}
   \begin{itemize}
   \item Cryptography: how to encrypt data
-  \item Secured communication protocols: how to encrypt data + share keys + 
-  \item Physical shielding
-  \item White-box cryptography    
+  \item Secured communication protocols: how to encrypt data + share keys
+  \item Physical shielding: how to protect device from physical alteration
+  \item \textbf{ICI il y a du travail}
   \end{itemize}
 \end{frame}
 
 
+% \begin{frame}
+%   \frametitle{TODO}
 
+%   \begin{itemize}
+%   \item Parler de firewall
+%   \item évoquer le fait qu'on va expliquer / comprendre comment marche https. 
+%   \item 
+%   \end{itemize}
+% \end{frame}
 
 
 
 \begin{frame}[fragile]
-  \frametitle{Definition - Communication Security}
+  \frametitle{Definition - Communication Security    \footnote{\url{https://en.wikipedia.org/wiki/Communications_security}}}
   \begin{block}{}
     \begin{center}
       \includegraphics[scale=1]{commSecurity.pdf}
     \end{center}
-    \footnote{inspiration: \url{https://en.wikipedia.org/wiki/Communications_security}}
+
   \end{block}
 
   \begin{center}
@@ -337,6 +488,8 @@ strcpy(A, "excessive");
   In this course, we mainly focus on \textbf{Cryptography}. 
 \end{frame}
 
+\section{History}
+
 
 \begin{frame}
   \frametitle{A brief history of cryptography}
@@ -356,7 +509,8 @@ strcpy(A, "excessive");
   \begin{itemize}
   \item Oldest cryprtographic device known (-404 BC)
   \item Write a message on a leather strap
-  \item Wrap the strap around a rod with correct diameter (that's the key)
+  \item Wrap the strap around a rod with correct diameter
+  \item Key = Shape of the rod (diameter, number of sides)
   \end{itemize}
 
   \begin{center}
@@ -366,17 +520,17 @@ strcpy(A, "excessive");
 \end{frame}
 
 
-\begin{frame}
-  \frametitle{TODO}
+% \begin{frame}
+%   \frametitle{TODO}
 
-  Expliquer d'autres éléments d'histoire, d'autres exemples de chiffrement.
+%   Expliquer d'autres éléments d'histoire, d'autres exemples de chiffrement.
 
-  Consolider la présentation d'Enigma
+%   Consolider la présentation d'Enigma
 
-  Finir par l'intro du cours suivant ! 
+%   Finir par l'intro du cours suivant ! 
   
   
-\end{frame}
+% \end{frame}
 
 
 % \begin{frame}
@@ -424,7 +578,7 @@ strcpy(A, "excessive");
   \begin{itemize}
   \item[\plus] Encryption and decryption are cheap
   \item[\minus] Easy to crack with frequency analysis
-  \item[\minus] Sufficient when no-one around can read :) (in
+  \item[\plus / \minus] Sufficient when no-one around can read :) (in
     particular, what's the difference between a foreign language and
     an encrypted language, if you can't read the first).
   \end{itemize}
@@ -434,13 +588,19 @@ strcpy(A, "excessive");
 \begin{frame}[fragile]
   \frametitle{General case: Substitution cipher}
 
-  \begin{itemize}
-  \item Replace a letter by another\\
+  \begin{block}{Principle}
+    Replace a letter by another\\
     \verb+ABCDEFGHIJKLMNOPQRSTUVWXYZ+\\
-    \verb+AZERTYUIOPQSDFGHJKLMWXCVBN+    
-  \item Attack: frequency analysis\\
-    Each letter in a given language has a specific occurrence frequency
+    \verb+AZERTYUIOPQSDFGHJKLMWXCVBN+
+  \end{block}
+  \begin{block}{Attack}
+    \begin{itemize}
+    \item Frequency analysis
+    \item Each letter in a given language has a specific occurrence frequency
+    \item Replace letter with frequency $f$ in the encrypted text by
+      letter with frequency $f$ in the original alphabet
   \end{itemize}
+  \end{block}
 
   \begin{center}
     \includegraphics[scale=0.3]{freqChart-EN.png}
@@ -450,31 +610,64 @@ strcpy(A, "excessive");
 
 
 \begin{frame}
-  \frametitle{Vigenère cipher}
-
-  \begin{itemize}
-  \item Invented XVIth century
-  \item The key gives the sequence of substitutions to use
-  \item ABC means ``shift by 1, then 2, then 3 characters''
-  \item Attack (XIXth):
+  \frametitle{Vigenère cipher (1/3) - Principle}
     \begin{itemize}
-    \item Determine key length (by looking for repetitions in the key)
-    \item Frequency analysis for each shift value
+    \item Invented XVIth century
+    \item Based on a \textbf{Vigenere table 26x26 $VigT$} : \\
+      Each line starts by a different letter $\mathcal{L}$ of the
+      alphabet and contains the whole alphabet in the usual order,
+      starting from $\mathcal{L}$ and looping back from A to Z ....
+      \begin{center}
+        \includegraphics[scale=0.3]{vigenere.png}
+      \end{center}
     \end{itemize}
-  \end{itemize}
-  
-  \begin{center}
-    \includegraphics[scale=0.15]{vigenere.png}
-  \end{center}
-  
 \end{frame}
 
 
 \begin{frame}
-  \frametitle{One-time pad}
+  \frametitle{Vigenère cipher (2/3) - Principle}
   \begin{itemize}
+  \item Let's send a message $m$ of length $l(m)$ : \\
+    \alert{$m$ = killthekingtonight, $l(m)$ = 18}
+    \item Choose a key $k$ of $l(k)$ characters : \\
+      \alert{$k$ = HORSE, $l(k)$ = 5}
+    \item Repeat the key until you reach length $l(m)$ \\
+      \alert{$k'$ = HORSEHORSEHORSEHOS}
+    \item encoded letter $m_i$ by replacing it by $VigT[k'_i][m_i]$: \\
+      \alert{cipher(m,k) = RWCDXOSBARNHFFMNVL}
+    \end{itemize}
+
+    \bigskip
+    
+    Strength: disguise the plaintext's letter frequency to interfere with frequency analysis.
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Vigenère cipher (3/3) - Kasiski's Attack (1863)}
+  \begin{itemize}
+  \item Some repeated word may be encrypted using the same key letters:\\
+%    Key:        ABCDABCDABCDABCDABCDABCDABCD\\
+    Plaintext:  \textbf{crypto}isshortfor\textbf{crypto}graphy\\
+    Ciphertext: \textbf{CSASTP}KVSIQUTGQU\textbf{CSASTP}IUAQJB\\
+  \item Distance between repetitions of \textbf{CSASTP} = 16
+  \item Assume repeated segments in the ciphertext encode the same plaintext
+  \item Key length is 16, 8, 4, 2 or 1 ... 1 and 2 are too simple. 
+  \item We know the key starts by A, B, C, D ... Let's try all possible keys. 
+  \end{itemize}
+
+  \bigskip
+  
+  The longer the ciphertext, the more accurate the analysis
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{One-time pad (1/3)}
+  \begin{itemize}
+  \item Invented in 1882
   \item Substitution cipher
-  \item Choose a \textbf{random key $K$} as least as long as the plaintext
+  \item Choose a \textbf{random key $K$} \alert{at least as long as the plaintext}
   \item To \textbf{encrypt}, each letter $P_i$ in Plaintext is replaced by the corresponding shifted letter:
     \begin{itemize}
     \item[] $\bm{E(P_i) = (P_i + K_i) \mbox{ mod } 26}$
@@ -490,7 +683,7 @@ strcpy(A, "excessive");
 
 
 \begin{frame}
-  \frametitle{One-time pad - Pros and Cons}
+  \frametitle{One-time pad  (2/3) - Pros and Cons }
 
   \begin{itemize}
   \item[\plus] Proven secure
@@ -500,6 +693,24 @@ strcpy(A, "excessive");
   \item[\minus] Key must be kept secret
   \item[\minus] Key must not be lost (not by one character)  
   \item[\minus] Key must be truly random 
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{One-time pad (3/3) - a long lasting history}
+  \begin{itemize}
+  \item \textbf{1920}: Weimar Republic Diplomatic Service
+  \item around \textbf{1930}: Soviet Union (after breaking of own cryptography by the British)\\
+    KGB spies used them until the 1950s and 1960s
+  \item during \textbf{WWII}: used in the SIGSALY secure speech system
+    for high-level Allied communications
+  \item from \textbf{1963}: (after the Cuban Missile Crisis):
+    Moscow-Washington-DC hotline used teleprinters
+  \item During the \textbf{1970s}: the NSA used them extensively
+  \item from \textbf{1988}: The African National Congress to
+    communicate between ANC leaders outside South Africa and
+    in-country operatives
   \end{itemize}
 \end{frame}
 
@@ -522,8 +733,12 @@ strcpy(A, "excessive");
 
 \begin{frame}
   \frametitle{Enigma}
-  \putat{0.7}{0.6}{\includegraphics[scale=0.3]{enigma.jpg}}
+  \putat{0.01}{0.65}{\includegraphics[scale=0.3]{enigma.jpg}}
 
+  \putat{0.25}{0.6}{\includegraphics[scale=0.2]{enigma-how-to.png}}
+
+  \vspace{-2cm}
+  
   \begin{itemize}
   \item Invented at the end of WWI
   \item Used extensively by Nazi Germany during WWII
@@ -538,39 +753,62 @@ strcpy(A, "excessive");
 
   \begin{itemize}
   \item Substitution cipher
+  \item Originally patented in 1918
   \end{itemize}
 
   \begin{center}
-    \includegraphics[scale=0.3]{Enigma-wiringdiagram.png}
+    \includegraphics[scale=0.25]{Enigma-wiringdiagram.png}
   \end{center}
- 
+
+  
+  \putat{0.75}{0.55}{\includegraphics[scale=0.3]{7X5A0921-closeup.png}}
+
+  
+  \begin{itemize}
+  \item All three wheels are wired differently 
+  \item Wheels are initialized to any position
+  \item The reflector never wires a letter to itself
+  \item Army-grade version :
+    \begin{itemize}
+    \item Choose 3 wheels amongst a set of 6
+    \item Plugboard
+    \item Change the initial rotor setting
+    \end{itemize}
+  \end{itemize}
+  
 \end{frame}
 
 
 \begin{frame}
   \frametitle{Enigma - Combinatorial}
+  \textbf{Every day}, the machine is reset to a pre-established configuration:
   \begin{itemize}
-  \item \textbf{Every day}, the machine is reset to a pre-established configuration:
-    \begin{itemize}
-    \item $20$ Rotors choice (3 or 4 or 5 among 6 possible). 
-    \item $26^3$ Rotors permutation 
-    \item  $26^3$Rotors initial positions 
-    \item Plug-board settings: $150.10^{12}$
-    \end{itemize}
-  \item \textbf{Every message} contains a rotors position the machine
-    should be reset to before decrypting the rest of the message.
-  \end{itemize}  
+  \item $60$ Rotors choice (3 or 4 or 5 among 6 possible). 
+    % \item $26^3$ Rotors permutation (\texttt{I-V-II} or \texttt{II-III-I} or ...)
+  \item  $26^3$Rotors initial letter combination
+  \item Plug-board settings: $$\frac{26!}{6!10!2^{10}}$$
+  \item The initial setting for a specific day, use a pre-printed
+    paper codebook (gives initial configuration)
+  \end{itemize}
+  % \item \textbf{Every message} contains a rotors position the machine
+  %   should be reset to before decrypting the rest of the message.
+
+  \begin{center}
+    \includegraphics[scale=0.2]{keysheet.jpg}
+  \end{center}
+  
 \end{frame}
+
 
 \begin{frame}
   \frametitle{Enigma - Breaking the machine}
 
   \begin{itemize}
-  \item To brute-force Enigma is unpractical: 150 millions millions combinations
+  \item To brute-force Enigma is unpractical: > 150 millions millions combinations
   \item A letter is encrypted into a different letter every time ....
   \item ... but never to itself !! \textbf{Main flaw}
   \item Try to guess a word or phrase in a message (and Germans military did use recurring messages, like weather reports)
-  \item ... 
+  \item ...
   \end{itemize}
 
 \end{frame}
@@ -610,19 +848,78 @@ strcpy(A, "excessive");
   \end{minipage}
 
   \footnote*{watch \url{https://en.wikipedia.org/wiki/The_Imitation_Game}}
-  
 \end{frame}
 
 
 \begin{frame}
-  \frametitle{Next time - Cryptography}
-  \begin{itemize}
-  \item Symmetric cryptography
-  \item Asymmetric cryptography
-  \item Key sharing
+  \frametitle{More Recent history}
+
+  \Wider{\small Symmetric (private-key) cryptography: 
+  \begin{itemize}\small 
+  \item \textbf{1975} IBM proposes the Data-Encryption Standard
+  \item \textbf{1977} DES Adopted as a FIPS standard
+  \item \textbf{1994} Differential-linear cryptanalysis of DES is proposed
+  \item \textbf{1996} call for DES replacement by NIST
+  \item \textbf{1998} Brute-force attack on DES demonstrated feasible
+  \item \textbf{2001} AES announced as replacement for DES
+  \item \textbf{2023} \textit{At present, there is no known practical attack
+      that would allow someone without knowledge of the key to read
+      data encrypted by AES when correctly
+      implemented. }\footnote{\url{https://en.wikipedia.org/wiki/Advanced_Encryption_Standard}}
   \end{itemize}
+
+  Asymmetric (public-key) cryptography:
+  \begin{itemize}\small 
+  \item \textbf{1976} Diffie-Hellman key exchange protocol proposed
+  \item \textbf{1977} RSA (Rivest-Shavir-Adleman)
+  \item \textbf{1985} El-Gamal encryption
+  \item \textbf{1985-...} Elliptic-Curve Cryptography
+  \end{itemize}}
   
 \end{frame}
+
+
+
+\begin{frame}
+  \frametitle{Course Plan}
+  
+  \begin{block}{Lectures}
+    \begin{itemize}
+    \item Symmetric cryptography, Asymmetric cryptography, Key sharing, compromises 
+    \item Security protocols: Public-Key Infrastructures, TLS, SSH, HTTPS, Kerberos, VPNs, 
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Lab / Paper Sessions}
+    \begin{itemize}
+    \item Ethical considerations
+    \item Applying asymmetric encryption principles
+    \item Password storage
+    \item Certification and Public-Key Infrastructures
+    \item Cryptographic Protocols
+    \item Reading survey project
+    \end{itemize}
+  \end{block}
+
+  All details on \url{https://lmorel-insa.github.io/csc/}
+  
+\end{frame}
+
+
+
+
+
+\begin{frame}
+  \frametitle{References}
+  \begin{itemize}
+  \item On exploiting buffer overflow: \url{https://youtu.be/1S0aBV-Waeo}
+  \item Turing's Enigma Problem Part 1: \url{https://youtu.be/d2NWPG2gB_A}
+  \item Turing's Enigma Problem Part 2: \url{https://youtu.be/kj_7Jc1mS9k}
+  \item Some details on the working of the Enigma (with a real machine presented): \url{https://youtu.be/G2_Q9FoD-oQ}
+  \item How easy is to crack Enigma today: \url{https://youtu.be/RzWB5jL5RX0}
+  \end{itemize}
+\end{frame}
+
 
 \end{document}
 

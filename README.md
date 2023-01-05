@@ -9,7 +9,7 @@ _Lionel Morel ([lionel.morel@insa-lyon.fr](mailto:lionel.morel@insa-lyon.fr))_
 
 Le cours 4TC-CSC est structuré de la manière suivante :
 
-* 3 séances de 2h de CM (incluant questions/réponses/discussions)
+* 3 séances de 2h de CM
 * 6 TD de 2h
 * 1 séance de 4h de TP
 * Environ 10h de travail personnel (préparation cours et TP)
@@ -71,7 +71,7 @@ Les questions d'auto-évaluation : [Questions](questions.md)
 Les [annales](https://github.com/flesueur/csc/tree/master/annales)
 -->
 
-![Le DAG du cours](CM/01-intro/fig/CoursePlan.jpg)
+![Le DAG du cours](CM/01-intro/fig/CoursePlan.png)
 
 
 Licence
