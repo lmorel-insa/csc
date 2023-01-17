@@ -12,6 +12,8 @@ hyperref={pdfpagelabels=false}
 \setlength {\marginparwidth }{2cm}
 \usepackage{todonotes}
 
+\usepackage{bm}
+
 \definecolor{Myred}{rgb}{0.7, 0.2, 0.2}
 
 \usecolortheme[named=Myred]{structure}
@@ -47,7 +49,7 @@ hyperref={pdfpagelabels=false}
 \title[CSC - Intro]{Cryptography - Principles \\ --Cryptographie et Sécurité des Communications--} 
 \author[]{Lionel Morel}
 \institute[]{Telecommunications - INSA Lyon}
-\date{Fall-Winter 2021-22}
+\date{Fall-Winter 2022-23}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%
@@ -103,7 +105,7 @@ hyperref={pdfpagelabels=false}
 \begin{frame}
   \frametitle{Previously}
   \begin{itemize}
-  \item Cesear Cipher
+  \item Caesar Cipher
   \item One-Time Pads 
   \item Enigma
   \item \textbf{Cryptology = Cryptography + Cryptanalysis}
@@ -150,7 +152,7 @@ hyperref={pdfpagelabels=false}
 
   \begin{block}{Diffusion}
     \begin{itemize}
-    \item Encryption/decryptions should imply an \textbf{avalanche effet}. Formally (in the original Shannon description): changing a single bit in the plaintext changes half of the bits in the cipher-text (eg at the block granularity)
+    \item Encryption/decryptions should imply an \textbf{avalanche effet}. \\ Precisely (in the original Shannon description): changing a single bit in the plaintext changes half of the bits in the cipher-text (eg at the block granularity)
     \item Usually implemented using \textbf{Permutations} (P-Boxes)
     \end{itemize}
   \end{block}
@@ -206,7 +208,7 @@ hyperref={pdfpagelabels=false}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Symmetric ciphers - Baisc Principles}
+  \frametitle{Symmetric ciphers - Basic Principles}
 
   \begin{block}{Block cipher}
     \begin{itemize}
@@ -358,9 +360,9 @@ hyperref={pdfpagelabels=false}
   \frametitle{DES - Weaknesses and Attacks}
 
   \begin{itemize}
-  \item Most practical attack to date: still brute force (ie trying out all possible key in turn).
-  \item Key size in DES was reduced from 128 bits to 56 bits (after discussions with ... NSA) ``to fit on a single chip''
+  \item Key size in DES was reduced from 128 bits to 56 bits (after discussions with NSA) ``to fit on a single chip''
   \item Practically cracked (brute-forced) in 1997
+  \item Most practical attack to date: still brute force (ie trying out all possible key in turn).
   \item Attacks faster than brute-force:
     \begin{itemize}
     \item Differential cryptanalysis: requires $2^{47}$ chosen plaintexts
@@ -375,18 +377,18 @@ hyperref={pdfpagelabels=false}
   
   \textbf{Principle:}
   \begin{itemize}
-  \item Choose two plaintexts $x$ and $y$ such that: \\
-    $y = x \oplus \Delta_x$
+  \item Choose two plaintexts $x$ and $y$ s.t.\footnote{$\oplus$ = ``xor''}: \\
+    $y = x \oplus \Delta_x$ 
   \item Compute the corresponding cyphertexts and for each S-Box S: 
     \begin{itemize}
-    \item $S(x)$
-    \item $S(y) = S(x \oplus \Delta_x)$
+    \item $S(x,k_i)$
+    \item $S(y,k_i) = S(x \oplus \Delta_x,k_i)$
     \end{itemize}
   \item Compute difference on S-Boxes:
     \begin{itemize}
-    \item $\Delta_y = S(x \oplus \Delta_x) \oplus S(x)$
+    \item $\Delta_y = S(x \oplus \Delta_x,k_i) \oplus S(x,k_i)$
     \end{itemize}
-  \item Repeat this for many plaintexts and several key hypothesis $k_i i \in \{0, n\}$
+  \item Repeat this for many plaintexts and several key hypothesis $k_i, i \in \{0, n\}$
   \item key $k_j$ that minimizes $\Delta$ is deemed ``most probable''.
   \end{itemize}
 
@@ -397,6 +399,21 @@ hyperref={pdfpagelabels=false}
   \end{itemize}
 \end{frame}
 
+
+\begin{frame}
+  \frametitle{Bonus: why $\oplus$ (xor) is ``difference''? }
+
+  \begin{tabular}{c|c|c}
+    $\oplus$ & 0 & 1 \\\hline
+    0        & 0 & 1 \\\hline
+    1        & 1 & 0 \\
+  \end{tabular}
+
+  \bigskip
+  
+  Which means $x \oplus y = 1 $ iff $x \neq y$
+  
+\end{frame}
 
 % \begin{frame}
 %   \frametitle{Linear Cryptanalysis}
@@ -446,8 +463,36 @@ hyperref={pdfpagelabels=false}
 \end{frame}
 
 
+
+
+\begin{frame}
+  \frametitle{AES - Principle\footnote{\url{https://en.wikipedia.org/wiki/Advanced_Encryption_Standard}}}
+  
+  \begin{itemize}
+  \item AES operates on $4\times 4$ array of 16 bytes, called \textbf{the state}
+    \[
+      \left[ {\begin{array}{cccc}
+                b_0 & b_4 & b_8 & b_{12} \\ 
+                b_1 & b_5 & b_9 & b_{13} \\ 
+                b_2 & b_6 & b_{10} & b_{14} \\
+                b_3 & b_7 & b_{11} & b_{15} \\ 
+              \end{array} }
+          \right]
+        \]
+      \item Key size specifies the number of transformation rounds to
+        convert input plaintext into output ciphertext:
+        \begin{itemize}
+        \item 10 rounds for 128-bit keys
+        \item 12 rounds for 192-bit keys
+        \item 14 rounds for 256-bit keys
+        \end{itemize}
+      \end{itemize}
+      
+    \end{frame}
+
+
 \begin{frame}[fragile]
-  \frametitle{Algorithm}
+  \frametitle{AES - Algorithm (for 10 rounds)}
 \begin{minted}{C}
 void AES_Run_secure(void){
   int i;
@@ -456,43 +501,37 @@ void AES_Run_secure(void){
       subBytes();
       shiftRows();
       mixColumns();
-      computeKey(rcon[i]);
       addRoundKey();
   }
   subBytes();
   shiftRows();
-  computeKey(rcon[i]);
   addRoundKey();
 }
 \end{minted}
 \end{frame}
 
-
-
-
+    
 \begin{frame}[fragile]
-  \frametitle{AES explained\footnote{\url{https://en.wikipedia.org/wiki/Advanced_Encryption_Standard}}}
+  \frametitle{AES - Initialization}
 
   \begin{itemize}
   \item \textbf{KeyExpansion} --- round keys are derived from the
     cipher key using the AES key schedule. AES requires a separate
     128-bit round key block for each round plus one more.
+  \item Initial State = Input plaintext
   \end{itemize}
 \end{frame}
 
 
 
 \begin{frame}[fragile]
-  \frametitle{AES (cont'd)}
-  \begin{itemize}
-  \item \textbf{Initial round key addition}:
+  \frametitle{AES - Round Key Addition}
 
-    \begin{itemize}
+  \begin{itemize}
     \item \textbf{AddRoundKey} – each byte of the state is combined with a byte
       of the round key using bitwise xor.
     \end{itemize}
-  \end{itemize}
-
+  
   \begin{center}
   \includegraphics[width=\textwidth,height=0.6\textheight,keepaspectratio]{AES-AddRoundKey.png}
 \end{center}
@@ -505,18 +544,28 @@ void AES_Run_secure(void){
 \begin{frame}
   \frametitle{AES - SubBytes}
 
-  SubBytes = a non-linear substitution step where each byte is
-  replaced with another according to a lookup table.
+  \begin{itemize}
+  \item SubBytes = a non-linear substitution step where each byte is
+    replaced with another according to a lookup table.
+  \item lookup table = S-box
+  \end{itemize}
 
-  \begin{center}
-    \includegraphics[width=\textwidth,height=0.6\textheight,keepaspectratio]{AES-SubBytes.png}
-  \end{center}
- 
+  \only<1>{
+    \begin{center}
+      \includegraphics[width=\textwidth,height=0.6\textheight,keepaspectratio]{AES-SubBytes.png}
+    \end{center}
+  }
+  \only<2>{
+    \begin{center}
+      \includegraphics[width=\textwidth,height=0.6\textheight,keepaspectratio]{AES-S-box.png}
+    \end{center}
+  }
+    
 \end{frame}
 
 
 \begin{frame}
-  \frametitle{ShiftRows}
+  \frametitle{AES - ShiftRows}
   ShiftRows = a transposition step where the last three rows of the state are shifted cyclically a certain number of steps.  
 
 
@@ -528,37 +577,63 @@ void AES_Run_secure(void){
 
 
 \begin{frame}
-  \frametitle{MixColumns}
-  MixColumns = a
-      linear mixing operation which operates on the columns of the
-      state, combining the four bytes in each column.
-      AddRoundKey
+  \frametitle{AES - MixColumns}
+  \begin{itemize}
+  \item MixColumns = a
+    linear mixing operation which operates on the columns of the
+    state, combining the four bytes in each column.
+    AddRoundKey
 
-
+  \item Together with ShiftRows, MixColumns provides diffusion in the cipher.
+  \end{itemize}
   \begin{center}
     \includegraphics[width=\textwidth,height=0.6\textheight,keepaspectratio]{AES-MixColumns.png}
   \end{center}
- 
+  
 \end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{AES - One Round}
+
+  One Round == 
+  \begin{minted}{C}
+    subBytes();
+    shiftRows();
+    mixColumns();
+    addRoundKey();  
+  \end{minted}
+
+  \bigskip
+  
+  \begin{itemize}
+  \item Repeat 9, 11 or 13 rounds
+  \item Plus an extra one without the MixColumns
+  \end{itemize}
+  
+\end{frame}
+
 
 \begin{frame}
   \frametitle{AES - Weaknesses and Attacks}
 
-  \begin{itemize}
-  \item Side-channel attacks are practical:
-    \begin{itemize}
-    \item 6-7 blocks plaintexts needed
-    \item[$\Rightarrow$] requires HW protections
-    \end{itemize}
-  \item Related-key attacks exists:
+  \begin{block}{Related-key attacks exists}
     \begin{itemize}
     \item $2^{99.5}$ time and space complexity
     \item btw: age of universe \~{} $2^{70}$
     \item Anyway totally impractical (because keys are well-chosen to
       be independant in crypto-systems)
     \end{itemize}
+  \end{block}
+
+  
+  \begin{block}{Side-channel attacks are practical}
+  \begin{itemize}
+  \item 6-7 blocks plaintexts needed
+  \item[$\Rightarrow$] requires HW protections
   \end{itemize}
-  \end{frame}
+\end{block}
+\end{frame}
 
 
 
@@ -599,9 +674,10 @@ void AES_Run_secure(void){
 \begin{frame}
   \frametitle{Diffie-Hellman Key Exchange}
   \begin{center}
-    \includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{fig/DiffieHellman.pdf}
+    \includegraphics[width=\textwidth,height=0.8\textheight,keepaspectratio]{fig/DiffieHellman.pdf}
   \end{center}
 \end{frame}
+
 
 
 
@@ -656,21 +732,23 @@ void AES_Run_secure(void){
 \begin{frame}
   \frametitle{Cryptographic Hash - today' state of affairs}
 
-  Existing (and used) implementations
-  \begin{itemize}
-  \item MD5: please don't use anymore: ``cryptographically broken and
-    unsuitable for further use''
-  \item SHA-1: not recommanded anymore (since 2017)
-  \item SHA-2: still not planned for removal
-  \item SHA-3: standardized in 2015
-  \end{itemize}
-
-  Current situation:
-  \begin{itemize}
-  \item Hash functions are critical in crypto!
-  \item SHA-2 is still safe but is conceptually close to SHA-1 and might share some weaknesses with it
-  \item SHA-3 considered ``as safe'' but built completely differently
-  \end{itemize}
+  \begin{block}{Existing (and used) implementations}
+    \begin{itemize}
+    \item MD5: please don't use anymore: ``cryptographically broken and
+      unsuitable for further use''
+    \item SHA-1: not recommanded anymore (since 2017)
+    \item SHA-2: still not planned for removal
+    \item SHA-3: standardized in 2015
+    \end{itemize}
+  \end{block}
+  
+  \begin{block}{Current situation}
+    \begin{itemize}
+    \item Hash functions are critical in crypto!
+    \item SHA-2 is still safe but is conceptually close to SHA-1 and might share some weaknesses with it
+    \item SHA-3 considered ``as safe'' but built completely differently
+    \end{itemize}
+  \end{block}
 \end{frame}
 
 \section{Asymmetric Cryptography}
@@ -681,11 +759,11 @@ void AES_Run_secure(void){
   \frametitle{(general) Asymmetric Cryptography}
 
   \begin{itemize}
-  \item Each participant $u$ has a pair of keys $Pub_u$ and $Priv_u$. 
-  \item $u$ sends $Pub_u$ to $v$
-  \item $v$ sends $Pub_v$ to $u$
-  \item $u$ can encrypt its messages to $v$ using a combination of $Pub_v$ and $Priv_u$
-  \item $v$ can decrypt messages from $u$ using a combination  of $Pub_u$ and $Priv_v$
+  \item Each participant $\bm{u}$ has a pair of keys $\bm{(Pub_u,Priv_u)}$. 
+  \item $\bm{u}$ sends $\bm{Pub_u}$ to $\bm{v}$
+  \item $\bm{v}$ sends $\bm{Pub_v}$ to $\bm{u}$
+  \item $\bm{u}$ can encrypt its messages to $\bm{v}$ using a combination of $\bm{Pub_v}$ and $\bm{Priv_u}$
+  \item $\bm{v}$ can decrypt messages from $\bm{u}$ using a combination  of $\bm{Pub_u}$ and $\bm{Priv_v}$
   \end{itemize}
 
   Note:
@@ -713,27 +791,27 @@ void AES_Run_secure(void){
   \frametitle{RSA - Key generation}
 
   \begin{itemize}
-  \item Choose $p$ and $q$, two prime numbers: random, kept secret
-  \item Compute $n = pq$
-  \item Compute $\lambda(n)$,
+  \item Choose $\bm{p}$ and $\bm{q}$, two prime numbers: random, kept secret
+  \item Compute $\bm{n = pq}$
+  \item Compute $\bm{\lambda(n)}$,
     \begin{itemize}
-    \item $\lambda(n) = lcm(\lambda(p), \lambda(q))$
-    \item $= lcm(p-1, q-1)$
-    \item $= \frac{pq}{gcd(p,q)}$ ... (gcd obtained with Euclid. algorithm)
+    \item $\bm{\lambda(n) = lcm(\lambda(p), \lambda(q))}$
+    \item $\bm{= lcm(p-1, q-1)}$
+    \item $\bm{= \frac{pq}{gcd(p,q)}}$ ... (gcd obtained with Euclid algorithm)
     \end{itemize}
-  \item Choose $e$ s.t.:
+  \item Choose $\bm{e}$ s.t.:
     \begin{itemize}
-    \item $1 < e < \lambda(n)$
-    \item $gdc(e,\lambda(n))=1$
+    \item $\bm{1 < e < \lambda(n)}$
+    \item $\bm{gdc(e,\lambda(n))=1}$
     \end{itemize}
-  \item Compute $d = e^{-1} \mbox{ mod } \lambda(n)$
+  \item Compute $\bm{d = e^{-1} \mbox{ mod } \lambda(n)}$
     \begin{itemize}
-    \item $d$ is the ``private key exponent''
+    \item $\bm{d}$ is the ``private key exponent''
     \end{itemize}
   \end{itemize}
 
   \begin{tcolorbox}[colframe=Myred]
-    $Pub = (e,n)$ \hfill $Priv = (d,n)$
+    $\bm{Pub = (e,n)}$ \hfill $\bm{Priv = (d,n)}$
   \end{tcolorbox}  
 \end{frame}
 
@@ -790,7 +868,8 @@ void AES_Run_secure(void){
   \frametitle{RSA - Properties \& Limitations}
 
   \begin{itemize}
-  \item[\plus] Finding $d$ requires factorizing $n$: proven difficult (for $p$ and $q$ large)
+  \item[\plus] Finding $d$ requires factorizing $n$ (if finding $p$
+    and $q$ s.t. $n=p*q$: proven difficult (for $p$ and $q$ large)
   \item[\minus] Implementation is tricky : good PRNG, acceptable $e$ 
   \item[\minus] Relies on exponentiation which is \textbf{expensive} :
     \begin{center}
@@ -798,8 +877,8 @@ void AES_Run_secure(void){
     \end{center}
     \begin{itemize}
     \item Requires a (fast) multiplier
-    \item Remember $y$ is big (if you want security)
-    \item still way more expensive than xor ! 
+    \item $y$ is big (if you want security)
+    \item Way more expensive than xor ! 
     \end{itemize}
   \end{itemize}
 \end{frame}
@@ -848,7 +927,7 @@ void AES_Run_secure(void){
   \end{block}
 
 
-  \begin{block}{Hybridcryptography}
+  \begin{block}{Hybrid cryptography}
     \begin{itemize}
     \item Alice encrypts a symmetric key with the public key of Bob
     \item Alice encrypts the message with the symmetric key
