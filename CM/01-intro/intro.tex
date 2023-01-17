@@ -90,7 +90,7 @@ hyperref={pdfpagelabels=false}
 \title[CSC - Intro]{Introduction \\ -- Cryptography and Secured Communications --} 
 \author[]{Lionel Morel}
 \institute[]{Telecommunications - INSA Lyon}
-\date{Fall-Winter 2021-22}
+\date{Fall-Winter 2022-23}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%
@@ -631,7 +631,7 @@ outputs:\\
     \alert{$m$ = killthekingtonight, $l(m)$ = 18}
     \item Choose a key $k$ of $l(k)$ characters : \\
       \alert{$k$ = HORSE, $l(k)$ = 5}
-    \item Repeat the key until you reach length $l(m)$ \\
+    \item Repeat the key until you reach $k'$ of length $l(k') = l(m)$ \\
       \alert{$k'$ = HORSEHORSEHORSEHOS}
     \item encoded letter $m_i$ by replacing it by $VigT[k'_i][m_i]$: \\
       \alert{cipher(m,k) = RWCDXOSBARNHFFMNVL}
@@ -648,12 +648,14 @@ outputs:\\
   \begin{itemize}
   \item Some repeated word may be encrypted using the same key letters:\\
 %    Key:        ABCDABCDABCDABCDABCDABCDABCD\\
-    Plaintext:  \textbf{crypto}isshortfor\textbf{crypto}graphy\\
     Ciphertext: \textbf{CSASTP}KVSIQUTGQU\textbf{CSASTP}IUAQJB\\
   \item Distance between repetitions of \textbf{CSASTP} = 16
   \item Assume repeated segments in the ciphertext encode the same plaintext
   \item Key length is 16, 8, 4, 2 or 1 ... 1 and 2 are too simple. 
-  \item We know the key starts by A, B, C, D ... Let's try all possible keys. 
+  \item We know the key starts by A, B, C, D ... Let's try all possible keys.
+    
+  \item Quite quickly, we find that:\\
+    Plaintext:  \textbf{CRYPTO}ISSHORTFOR\textbf{CRYPTO}GRAPHY\\
   \end{itemize}
 
   \bigskip
@@ -689,7 +691,8 @@ outputs:\\
   \item[\plus] Proven secure
   \item[\plus] Even to frequency analysis
   \item[\plus] Encryption and decryption are cheap
-  \item[\minus] Key must be as long as the plaintext ... 
+  \item[\minus] Fresh key is needed for every plaintext 
+  \item[\minus] Key must be as long as the plaintext 
   \item[\minus] Key must be kept secret
   \item[\minus] Key must not be lost (not by one character)  
   \item[\minus] Key must be truly random 
