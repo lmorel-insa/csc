@@ -6,6 +6,11 @@ _Lionel Morel ([lionel.morel@insa-lyon.fr](mailto:lionel.morel@insa-lyon.fr))_
 ==========================
 -->
 
+Ce cours a été initialement monté par François Lesueur. 
+Voir la [version "originelle" en ligne](https://flesueur.github.io/csc/). 
+
+Des supports supplémentaires ont été ajoutés pour les cours magistraux. 
+
 
 Le cours 4TC-CSC est structuré de la manière suivante :
 
