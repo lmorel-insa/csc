@@ -66,12 +66,12 @@ Par exemple, "crypto" devient `03 18 25 16 20 15`
 
 Ensuite, afin de ne pas retomber dans un chiffrement par substitution simple, les chiffres sont assemblés par blocs de 3 (complété éventuellement de 0 à la fin), ainsi `03 18 25 16 20 15` devient `031 825 162 015`.
 
-Enfin, chaque bloc clair de 3 chiffres est chiffré indépendamment par la fonction RSA : `bloc<sub>chiffré</sub> = bloc<sub>clair</sub><sup>e</sup>[n]`. Attention, _(e,n)_ représente une clé publique, mais celle de qui ? L'utilisation de la clé _(7,1147)_ donne le chiffré `1116 751 245 1108`.
+Enfin, chaque bloc clair de 3 chiffres est chiffré indépendamment par la fonction RSA : _bloc<sub>chiffré</sub> = bloc<sub>clair</sub><sup>e</sup>[n]_. Attention, _(e,n)_ représente une clé publique, mais celle de qui ? L'utilisation de la clé _(7,1147)_ donne le chiffré `1116 751 245 1108`.
 
 > Pour calculer les exponentiations modulaires, vous pouvez utiliser python (dans l'interpréteur, tapez `pow(a,b,c)` pour obtenir a<sup>b</sup>[c]) ou [DCODE](https://www.dcode.fr/exponentiation-modulaire)<!--[Wolfram Alpha](http://www.wolframalpha.com)-->. Attention, lors des calculs, n'écrivez pas de '0' en début d'entier. Par exemple, pour le bloc clair `031`, tapez `pow(31,7,1147)`. Commencer un entier par '0' le fait interpréter comme un nombre encodé en _octal_ (même principe qu'un nombre commençant par '0x' qui est interprété comme un hexadécimal).
 
 
-Le déchiffrement est opéré de manière analogue, en utilisant la clé privée au lieu de la clé publique. Chaque bloc clair est réobtenu à partir du bloc chiffré par le calcul : `bloc<sub>clair</sub> = bloc<sub>chiffré</sub><sup>d</sup>[n]`. 
+Le déchiffrement est opéré de manière analogue, en utilisant la clé privée au lieu de la clé publique. Chaque bloc clair est réobtenu à partir du bloc chiffré par le calcul : _bloc<sub>clair</sub> = bloc<sub>chiffré</sub><sup>d</sup>[n]_. 
 
 Mise en pratique
 ----------------
