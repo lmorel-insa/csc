@@ -42,7 +42,7 @@ Nous allons commencer par générer une paire de clés RSA pour chacun. Voici l'
 <!-- **[Distanciel]** Gardez votre clé privée secrète et transmettez votre clé publique à l'enseignant via un _message privé_ dans BBB. Elle sera inscrite dans le registre tenu par l'enseignant et affiché par BBB (la "PKI"). -->
 
 <!-- **[Présentiel]**  -->
-Gardez votre clé privée secrète et inscrivez votre clé publique sur la liste commune au groupe. Cette liste constitue la PKI du groupe. 
+Gardez votre clé privée secrète et inscrivez votre clé publique sur la liste commune au groupe. Cette liste constitue la PKI du groupe. Elle va être recopiée au tableau pour que chaque puisse chiffrer des messages à destinations des différents participants. 
 
 Les exemples dans la suite du sujet sont réalisés avec p=31, q=37, n=1147, &phi;(n)=1080, e=7, d=463. La clé publique est _(e,n)_, ici _(7,1147)_, et la clé privée est _(d,n)_, ici _(463,1147)_.
 
@@ -76,10 +76,15 @@ Le déchiffrement est opéré de manière analogue, en utilisant la clé privée
 Mise en pratique
 ----------------
 
-Vous allez maintenant transmettre un message chiffré à un autre étudiant. Pour cette partie, contrairement aux explications en début de sujet, vous pouvez déposer ce message chiffré sur le chat du général et non en message privé : le chiffrement assure la _confidentialité_ du message transmis.
+Vous allez maintenant transmettre un message chiffré à un autre
+étudiant.  Chiffrez votre message sur un brouillon (ou sur votre
+ordinateur) et inscrivez le sur un bout de papier avec le nom du
+destinataire. Faites passer votre message de proche en proche, en
+direction du destinataire.
+Rappel : on voit bien dans ce cas que le chiffrement assure la _confidentialité_ du message transmis.
 
 1. **Chiffrement de votre message** : Chiffrez un message de votre choix avec le cryptosystème proposé.
-2. **Envoi de votre message** : Écrivez le message chiffré dans le chat du BBB général.
+2. **Envoi de votre message** : Écrivez le message chiffré ainsi que le nom de son destinataire sur un papier que vous faites circuler sans risque dans le groupe.
 3. **Réception d'un message** : À la réception d'un message, appliquez l'algorithme de déchiffrement. Quelqu'un d'autre pouvait-il obtenir le clair de ce message ?
 
 
@@ -98,7 +103,11 @@ Nous allons signer des chaînes de caractères. Pour cela, chaque lettre est rem
 	}
 	return h%1000;
 
-La valeur de la signature vaut alors _h(m)<sup>d</sup>[n]_. Attention, _(d,n)_ représente une clé privée, mais celle de qui ? Le haché de "crypto" vaut par exemple 831 et la signature par _(463,1147)_ est 335.
+Quelques remarques: : 
+1. La valeur de la signature vaut alors _h(m)<sup>d</sup>[n]_. 
+2. Exemple : le haché de "crypto" vaut par exemple 831 et la signature par _(463,1147)_ est 335.
+3. Attention, _(d,n)_ représente une clé privée, mais celle de qui ? 
+4. N'hésitez pas à implémenter cette fonction en python par exemple, pour faciliter la signature de vos messages.
 
 Le message est alors envoyé accompagné de sa signature. La vérification d'un message reçu _m_ signé avec _sig_ est opérée de la manière suivante :
 
@@ -113,7 +122,7 @@ Mise en pratique
 Vous allez maintenant transmettre un message clair (non chiffré) signé à un autre étudiant, par message privé. La signature permet de vérifier l'_intégrité_ du message transmis.
 
 1. **Signature de votre message** : Signez un message de votre choix avec le cryptosystème proposé.
-1. **Envoi de votre message** : Écrivez le message par message privé (attention, il faut bien envoyer le message en clair + la signature !)
+1. **Envoi de votre message** : Envoyez le message sur un bout de papier en direction du destinataire (attention, il faut bien envoyer le message en clair + la signature !)
 3. **Réception d'un message** : À la réception d'un message, appliquez l'algorithme de vérification de la signature. Le message reçu est-il intègre ? Si non, quelle attaque avez-vous détectée ?
 
 
@@ -123,7 +132,7 @@ Vous allez maintenant transmettre un message clair (non chiffré) signé à un a
 <!-- Étudiez et testez quelques attaques sur le système mis en place : -->
 
 <!-- * Modification de message en conservant la validité de la signature -->
-<!-- * Attaque de la clé privée (par factorisation de _n_ par exemple) -->
+	<!-- * Attaque de la clé privée (par factorisation de _n_ par exemple) -->
 
 
 <!-- Toutes ces attaques sont possibles ici. Réfléchissez à leur cause et aux protections mises en place dans les cryptosystèmes réels. Implémentez une (ou plusieurs) attaque dans le langage de votre choix, proposez une contre-mesure et évaluez la complexité rajoutée par votre contre-mesure. -->
