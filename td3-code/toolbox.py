@@ -213,7 +213,7 @@ def initworkspace(nblogins,nbpasswords,nbiterations):
 # Unit tests
 if __name__ == '__main__':
     # create shadow files
-    initworkspace(10,100,1000)
+    initworkspace(10,100,100)
 
     print("======\nUnit tests of the toolbox, you must work in skeleton.py\n=========")
 

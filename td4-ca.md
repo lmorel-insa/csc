@@ -2,17 +2,32 @@
 
 _Lionel Morel ([lionel.morel@insa-lyon.fr](mailto:lionel.morel@insa-lyon.fr))_
 
-Ce TD présente le modèle de PKI "Autorités de certification", généralement noté CA (_Certification Authority_). Pour rappel, dans le cas du HTTPS par exemple, une CA doit permettre de valider la clé publique tierce obtenue pour la connexion au site demandé.
+Ce TD présente le modèle de PKI "Autorités de certification", généralement noté CA (_Certification Authority_). 
 
-Dans le mode distanciel, réfléchissez en groupes de 4 dans des salons de discussion spécifiques. Des éléments de réponse sont accessibles pour chaque question (en cliquant sur les questions) : réfléchissez sans ces éléments, puis regardez et intégrez ces éléments. L'enseignant fera le tour des groupes pour échanger sur les points nécessaires.
+
+Généralités
+===========
+
+Une CA est une instance qui permet de valider la clé publique fournie par un site web auquel vous demandez à vous connecter. 
+
+On reverra le fonctionnement plus bas et en cours ensuite, mais en gros, pour un utilisateur `A` demandant à accéder à un site `https://www.csc.fr` : 
+
+1. `A` demande à `https://www.csc.fr` sa clé publique `K`
+2. `A` demande à une CA : "est-ce que la clé publique `K` est bien celle de `https://www.csc.fr` ? 
+3. si 'non', alors warning 
+4. si 'oui', alors établissement d'une clé de session (avec Diffie-Hellman)
+
+Donc, dans ce cas, la CA permet de valider la clé publique obtenue pour la connexion au site demandé.
+
+Le but de ce TD est d'explorer le fonctionnement de l'échange de clés pour https et d'en comprendre certaines limites. Des éléments de réponse sont donnés en dessous de chaque question, mais les lire sans réflechir n'a pas grand intérêt. Donc réfléchissez avant de regarder les solutions :). 
 
 Notations
 =========
 
-* h(m) est le hash du message m
+* _h(m)_ est le hash du message _m_
 <!-- * Si K<sub>A</sub> est une clé symétrique, {m}<sub>K<sub>A</sub></sub> est le chiffré de m avec la clé K<sub>A</sub>, m = { {m}<sub>K<sub>A</sub></sub>}<sub>K<sub>A</sub></sub> -->
-* Si Pub<sub>A</sub> et Priv<sub>A</sub> sont des clés asymétriques complémentaires publique/privée, {m}<sub>Pub<sub>A</sub></sub> est le chiffré de m avec la clé Pub<sub>A</sub> et m = { {m}<sub>Pub<sub>A</sub></sub>}<sub>Priv<sub>A</sub></sub>
-* m signé avec la clé Priv<sub>A</sub> est noté m.{h(m)}<sub>Priv<sub>A</sub></sub>
+* Si _Pub<sub>A</sub>_ et _Priv<sub>A</sub>_ sont des clés asymétriques complémentaires publique/privée, _{m}<sub>Pub<sub>A</sub></sub>_ est le chiffré de _m_ avec la clé _Pub<sub>A</sub>_ et _m = { {m}<sub>Pub<sub>A</sub></sub>}<sub>Priv<sub>A</sub></sub>_
+* _m_ signé avec la clé _Priv<sub>A</sub>_ est noté _m.{h(m)}<sub>Priv<sub>A</sub></sub>_
 
 
 Point de départ et objectif
@@ -20,18 +35,18 @@ Point de départ et objectif
 
 Nos deux interlocuteurs sont Alice (client HTTPS, ie, un navigateur web) et Bob (serveur HTTPS, ie, un serveur web). Même si le protocole permet l'authentification mutuelle (chaque acteur authentifie cryptographiquement l'autre), nous allons étudier le cas le plus diffusé où seul le client HTTPS authentifie le serveur HTTPS. L'authentification permet d'établir un canal sécurisé en sachant que la bonne personne est de l'autre côté : il faut pour cela connaître la bonne clé publique de son interlocuteur.
 
-Nous allons décrire au fur et à mesure la connaissance des différents acteurs. Au départ, Alice n'a pas de connaissance particulière, Bob connaît son couple de clés Pub<sub>B</sub>/Priv<sub>B</sub> (c'est lui qui l'a généré).
+Nous allons décrire au fur et à mesure la connaissance des différents acteurs. Au départ, Alice n'a pas de connaissance particulière, Bob connaît son couple de clés _Pub<sub>B</sub>/Priv<sub>B</sub>_ (c'est lui qui l'a généré).
 
-L'objectif est qu'Alice obtienne la connaissance (B, Pub<sub>B</sub>), ie, l'association valide de la clé publique de Bob à son identité.
+L'objectif est qu'Alice obtienne la connaissance _(B, Pub<sub>B</sub>)_, ie, l'association valide de la clé publique de Bob à son identité.
 
 
 
 Échange direct
 ==============
 
-Alice et Bob communiquent à travers un canal non sécurisé. La première façon pour Alice d'obtenir l'association attendue serait de la demander à Bob à travers ce canal. C'est ce qu'il se passe lorsque l'on parle, en HTTPS, de _certificats auto-signés_.
+Alice et Bob communiquent à travers un canal _non sécurisé_. La première façon pour Alice d'obtenir l'association attendue serait de la demander à Bob à travers ce canal. C'est ce qu'il se passe lorsque l'on parle, en HTTPS, de _certificats auto-signés_.
 
-1. <details><summary>Sans prendre en compte la sécurité, est-ce que cela peut fonctionner ?</summary>Oui, on obtient en général une clé fonctionnelle</details>
+1. <details><summary>Sans prendre en compte la sécurité, est-ce que cela peut fonctionner ? ie est-ce que vous pouvez alors échanger des messages en secret ?</summary>Oui, on obtient en général une clé fonctionnelle</details>
 2. <details><summary>Si cela fonctionne, quel peut être le risque (en prenant maintenant en compte la sécurité) ? A-t-on gagné quelque chose par rapport à une communication en clair ?</summary>S'il y a un attaquant, il peut remplacer la clé sur le chemin. On a en fait rien gagné : soit il n'y a pas d'attaquant sur le chemin, on obtient la bonne clé mais la crypto ne sert pas à grand chose (vu qu'il n'y a pas d'attaquant) ; soit il y a un attaquant et on se fait MitM</details>
 3. <details><summary>Décrivez une attaque possible par <a href="https://fr.wikipedia.org/wiki/Attaque_de_l%27homme_du_milieu">man-in-the-middle</a>.</summary>L'idée est de modifier la clé en chemin et de s'interfacer dans la communication, il faut détailler.</details>
 
@@ -42,16 +57,17 @@ Une PKI, et donc par exemple une CA, vise à sécuriser l'obtention de cette ass
 Ajout d'un nouvel acteur : la CA
 ========================
 
-Nous intégrons un troisième acteur C (CA), qui va agir comme un tiers de confiance, et ajoutons les connaissances suivantes :
+Nous intégrons un troisième acteur `C` (CA), qui va agir comme un tiers de confiance, et ajoutons les connaissances suivantes :
 
-* C connaît Pub<sub>C</sub>/Priv<sub>C</sub> (son couple de clés)
-* A connaît Pub<sub>C</sub> et fait confiance à C
-* L'objectif est que C certifie beaucoup d'associations (identité, clé publique), afin de servir de pivot unique pour de nombreuses communications
+* `C` connaît _Pub<sub>C</sub>/Priv<sub>C</sub>_ (son couple de clés) ;
+* `A` connaît _Pub<sub>C</sub>_ et fait confiance à `C` ;
+* L'objectif est que C certifie beaucoup d'associations (identité, clé publique), afin de servir de pivot unique pour de nombreuses communications ;
+* Son rôle est donc de servir de stockage de clées publiques pour permettre aux différents intervenants d'authentifier leur interlocuteur du moment. 
 
-1. <details><summary>À partir du cours, refaites la cinématique de CA/HTTPS dans ce modèle : les échanges entre B et C, puis entre B et A (A et C ne communiquent jamais directement !). Quel élément est le certificat ? Vous utiliserez les notations présentées en début de sujet.</summary>B fait une demande de certificat, il envoie pour cela (B, Pub<sub>B</sub>) à C. C lui envoie en réponse le certificat (B, Pub<sub>B</sub>).{h((B, Pub<sub>B</sub>))}<sub>Priv<sub>C</sub></sub>, qui est l'association signée par sa clé privée. Enfin, B envoie à A ce certificat (B, Pub<sub>B</sub>).{h((B, Pub<sub>B</sub>))}<sub>Priv<sub>C</sub></sub></details>
-2. <details><summary>Comment C vérifie-t-elle l'association déclarée (B, Pub<sub>B</sub>) ?</summary>Il n'y a pas de cryptographie possible à ce niveau, C ne connaît pas B initialement. Ce sont d'autres moyens : réception d'un mail (est-ce sécurisé ?), coup de téléphone, envoi d'un paquet par internet (mais sans authentifier B, donc). Pas de preuve de validité cryptographique ici, et c'est donc largement perfectible : pas de miracle !</details>
-3. <details><summary>Comment A vérifie-t-elle l'association obtenue (B, Pub<sub>B</sub>) ? Quelle est la chaîne de confiance ?</summary>En vérifiant la signature grâce à Pub<sub>C</sub>. A fait confiance à C, qui a confiance en l'identité de B.</details>
-4. <details><summary>Que déduire si le certificat reçu par A est bien signé mais pour une identité différente de B ? (en HTTPS, l'identité attendue, B par exemple, correspond au nom d'hôte de la requête, par exemple `www.insa-lyon.fr` pour une requête à `https://www.insa-lyon.fr/index.html`)</summary>On en déduit que la réponse ne vient (peut-être) pas du serveur attendu (n'importe qui peut avoir un certificat bien signé pour un autre nom), donc on est pas dans les conditions de sécurité. Le navigateur vérifie que le certificat est valide ET correspond bien à l'identité demandée.</details>
+1. <details><summary>Essayez d'imaginer une cinématique de CA/HTTPS dans ce modèle, ie les échanges nécessaires enrte `A`, `B` et `C` pour établir une communication sécurisée entre `A` et `B`, en se servant de `C` comme tiers de confiance. Vous ferez apparaître les échanges entre `B` et `C`, puis entre `B` et `A`. Notez que `A` et `C` ne communiquent jamais directement !. Quel élément est le certificat ? Vous utiliserez les notations présentées en début de sujet.</summary>`B` fait une demande de certificat, il envoie pour cela (`B`, _Pub<sub>B</sub>_) à `C`. `C` lui envoie en réponse le certificat _(B,Pub<sub>B</sub>).{h((B, Pub<sub>B</sub>))}<sub>Priv<sub>C</sub></sub>_, qui est l'association signée par sa clé privée. Enfin, `B` envoie à `A` ce certificat _(B, Pub<sub>B</sub>).{h((B, Pub<sub>B</sub>))}<sub>Priv<sub>C</sub></sub>_</details>
+2. <details><summary>Comment `C` vérifie-t-elle l'association déclarée _(B, Pub<sub>B</sub>)_ ?</summary>Il n'y a pas de cryptographie possible à ce niveau, `C` ne connaît pas `B` initialement. Ce sont d'autres moyens : réception d'un mail, coup de téléphone, envoi d'un paquet par internet (mais sans possibilité d'authentifier `B` non plus, donc). Pas de preuve de validité cryptographique ici, c'est la limite de la cryptographie dont on a déjà parlé plusieurs fois dans le cours. </details>
+3. <details><summary>Comment `A` vérifie-t-elle l'association obtenue _(B, Pub<sub>B</sub>)_ ? Quelle est la chaîne de confiance ?</summary>En vérifiant la signature grâce à _Pub<sub>C</sub>_. `A` fait confiance à `C`, qui a confiance en l'identité de `B`.</details>
+4. <details><summary>Que déduire si le certificat reçu par `A` est bien signé mais pour une identité différente de `B` ? (en HTTPS, l'identité attendue, `B` par exemple, correspond au nom d'hôte de la requête, par exemple `www.insa-lyon.fr` pour une requête à `https://www.insa-lyon.fr/index.html`)</summary>On en déduit que la réponse ne vient (peut-être) pas du serveur attendu (n'importe qui peut avoir un certificat bien signé pour un autre nom), donc on est pas dans les conditions de sécurité. Le navigateur vérifie que le certificat est valide ET correspond bien à l'identité demandée.</details>
 
 > Un second type d'alerte de sécurité des navigateurs concerne des certificats bien signés mais valides pour un autre site.
 
@@ -67,7 +83,9 @@ Nous intégrons un troisième acteur C (CA), qui va agir comme un tiers de confi
 L'écosystème HTTPS
 ==================
 
-Ce modèle est tout à fait possible avec une unique CA. Cependant, en pratique, il s'est développé avec une multitude de CA, notamment pour HTTPS. Chaque serveur a le choix de quelle CA il veut être certifié. Du coup, un navigateur reconnaît typiquement de l'ordre d'une petite centaine de CA différentes.
+Ce modèle est tout à fait possible avec une unique CA. Cependant, en pratique, il s'est développé avec une multitude de CA, notamment pour HTTPS. Chaque serveur a le choix quant à la CA auprès de qui il souhaite être certifié. Du coup, un navigateur reconnaît typiquement de l'ordre d'une petite centaine de CA différentes.
+
+Pour observer cela, dans firefox, allez voir dans `Preferences > Privacy & Security > Security > Certificates > View Certificates`.
 
 Imaginez maintenant que l'une des autorités soit compromise (malveillante ou attaquée):
 
@@ -109,15 +127,15 @@ La révocation est un problème qui n'est toujours pas traité de manière satis
 Organisation d'une CA à étages
 ==============================
 
-Pour limiter les risques et impacts d'une compromission, chaque certificat a une durée de vie limitée, spécifiée dans l'association. Les CA emploient de plus plusieurs clés de niveaux de sensibilité différents. Cela permet d'avoir une ancre de confiance connue par A avec une longue durée de vie (par exemple 30 ans) tout en utilisant quotidiennement du matériel cryptographique avec une durée de vie plus courte (par exemple 1 an).
+Pour limiter les risques et impacts d'une compromission, chaque certificat a une durée de vie limitée, spécifiée dans l'association. Les CA emploient de plus plusieurs clés de niveaux de sensibilité différents. Cela permet d'avoir une ancre de confiance connue par `A` avec une longue durée de vie (par exemple 30 ans) tout en utilisant quotidiennement du matériel cryptographique avec une durée de vie plus courte (par exemple 1 an).
 
-C a ainsi, à l'instant _t_ :
+`C` a ainsi, à l'instant _t_ :
 
-* Pub<sub>CL</sub>/Priv<sub>CL</sub>, les clés longues, liées au certificat _racine_
-* Pub<sub>CC</sub>/Priv<sub>CC</sub>, les clés courtes, liées au certificat _intermédiaire_
+* _Pub<sub>CL</sub>/Priv<sub>CL</sub>_, les clés longues, liées au certificat _racine_
+* _Pub<sub>CC</sub>/Priv<sub>CC</sub>_, les clés courtes, liées au certificat _intermédiaire_
 
 Typiquement, un certificat racine avec une durée de vie longue (30 ans par exemple) est intégré aux navigateurs. La clé privée associée à ce certificat est stockée hors-ligne et est utilisée, chaque année, pour signer un certificat intermédiaire avec une durée de vie plus courte (1 an). C'est ensuite ce certificat intermédiaire qui est utilisé au quotidien.
 
-1. <details><summary>Formalisez cette organisation (matériel côté CA, matériel côté site, matériel côté client).</summary>Côté CA : Pub<sub>CL</sub>/Priv<sub>CL</sub>, Pub<sub>CC</sub>/Priv<sub>CC</sub>, Pub<sub>CC</sub>.{h(Pub<sub>CC</sub>)}<sub>Priv<sub>CL</sub></sub><br>Côté site : (B, Pub<sub>B</sub>).{h((B, Pub<sub>B</sub>))}<sub>Priv<sub>CC</sub></sub>.Pub<sub>CC</sub>.{h(Pub<sub>CC</sub>)}<sub>Priv<sub>CL</sub></sub><br>Côté client : Pub<sub>CL</sub></details>
-2. <details><summary>Quel est le chemin de vérification pour le client ?</summary>Le serveur envoie (B, Pub<sub>B</sub>).{h((B, Pub<sub>B</sub>))}<sub>Priv<sub>CC</sub></sub>.Pub<sub>CC</sub>.{h(Pub<sub>CC</sub>)}<sub>Priv<sub>CL</sub></sub>, qui contient : l'association (B, Pub<sub>B</sub>), sa signature avec la clé Priv<sub>CC</sub>, la clé publique Pub<sub>CC</sub> et la signature de cette clé publique avec la clé Priv<sub>CL</sub><br>Le client vérifie cette chaîne en partant de Pub<sub>CL</sub>, qui permet de vérifier que Pub<sub>CC</sub> est valide, et ensuite utilise Pub<sub>CC</sub> pour valider (B, Pub<sub>B</sub>)</details>
+1. <details><summary>Formalisez cette organisation (matériel côté CA, matériel côté site, matériel côté client).</summary>Côté CA : _Pub<sub>CL</sub>/Priv<sub>CL</sub>_, _Pub<sub>CC</sub>/Priv<sub>CC</sub>_, _Pub<sub>CC</sub>.{h(Pub<sub>CC</sub>)}<sub>Priv<sub>CL</sub></sub>_<br>Côté site : _(B, Pub<sub>B</sub>).{h((B, Pub<sub>B</sub>))}<sub>Priv<sub>CC</sub></sub>.Pub<sub>CC</sub>.{h(Pub<sub>CC</sub>)}<sub>Priv<sub>CL</sub></sub>_<br>Côté client : _Pub<sub>CL</sub>_</details>
+2. <details><summary>Quel est le chemin de vérification pour le client ?</summary>Le serveur envoie _(B, Pub<sub>B</sub>).{h((B, Pub<sub>B</sub>))}<sub>Priv<sub>CC</sub></sub>.Pub<sub>CC</sub>.{h(Pub<sub>CC</sub>)}<sub>Priv<sub>CL</sub></sub>_, qui contient : l'association _(B, Pub<sub>B</sub>)_, sa signature avec la clé _Priv<sub>CC</sub>_, la clé publique _Pub<sub>CC</sub>_ et la signature de cette clé publique avec la clé _Priv<sub>CL</sub>_. <br> Le client vérifie cette chaîne en partant de _Pub<sub>CL</sub>_, qui permet de vérifier que _Pub<sub>CC</sub>_ est valide, et ensuite utilise _Pub<sub>CC</sub>_ pour valider _(B, Pub<sub>B</sub>)_</details>
 3. <details><summary>Comment remédier dans le cas où un certificat intermédiaire est compromis ? Dans le cas où le certificat racine est compromis ?</summary>Intermédiaire : on pourrait le révoquer, si la révocation marchait ;).<br>Racine : c'est ancré dans la distribution logicielle du navigateur, il faut que l'éditeur du navigateur propose une mise à jour puis que l'utilisateur applique cette mise à jour (assez efficace sur ordinateur, beaucoup moins sur smartphones avec les anciens qui ne reçoivent plus de mise à jour, pire sur l'équipement spécifique industriel/médical/IoT)</details>
