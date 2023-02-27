@@ -30,7 +30,7 @@ hyperref={pdfpagelabels=false}
 
 \usepackage{picture}
 \usepackage{pgfplots}
-\usepackage{filecontents}
+% \usepackage{filecontents}
 % \pgfplotsset{compat=1.12}
 \usepackage{pdflscape}
 
@@ -41,10 +41,10 @@ hyperref={pdfpagelabels=false}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%% PRESENTATION INFO %%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\title[CSC - Intro]{Secured Communication Protocols \\ --Cryptographie et Sécurité des Communications--} 
+\title[CSC - Protocols]{Secured Communication Protocols \\ --Cryptographie et Sécurité des Communications--} 
 \author[]{Lionel Morel}
 \institute[]{Telecommunications - INSA Lyon}
-\date{Fall-Winter 2021-22}
+\date{Fall-Winter 2022-23}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%
@@ -101,28 +101,55 @@ hyperref={pdfpagelabels=false}
   \end{center}
 \end{frame}
 
+\begin{frame}
+  \frametitle{Diffie-Hellman Key Exchange - Comments}
+  
+  \begin{itemize}
+  \item $g^k \mbox{ mod } n$ is the \textbf{modular exponentiation} and can be
+    computed quiet efficiently....
+ 
+%  \item x and N and ``relatively prime'' iff they share no prime factors. 
+
+    
+  \item The strength of the scheme comes from the fact that
+    modular exponentiation is hard to invert:
+    \begin{itemize}
+    \item Assume you know $g^{N} \mbox{ mod } p$, $g$ and $p$, can you guess $N$ ? 
+    \item For small values of $N$, it's doable to enumerate
+    \item For very big values it's not: this is known as the
+      \textbf{Discrete Logarithm Problem}
+    \end{itemize}
+  \item Security of cryptography is all about \textbf{One-way functions}
+  \end{itemize}
+\end{frame}
+
+
 
 \begin{frame}
   \frametitle{Asymmetric Cryptography}
 
   \begin{itemize}
-  \item Each participant builds a $(Pub_k, Priv_k)$ pair of keys
+  \item Each participant builds a pair of keys
+  \item $A$ : $(Pub_A, Priv_A)$ = $((e_A,n_A), (d_A, n_A))$
+  \item $B$ : $(Pub_B, Priv_B)$= $((e_B,n_B), (d_B, n_B))$
   \end{itemize}
 
-\
+  \
   
-  \begin{minipage}[t]{.45\textwidth}
-    \textbf{Encryption}
-    
-    \includegraphics[width=\textwidth,height=0.6\textheight,keepaspectratio]{fig/RSA-encryption.pdf}
-  \end{minipage}
-  \hfill
-  \begin{minipage}[t]{.45\textwidth}
-   \textbf{Decryption}
-
-   \includegraphics[width=\textwidth,height=0.6\textheight,keepaspectratio]{fig/RSA-decryption.pdf}
-  \end{minipage}
+  \textbf{Encryption by $A$ (for $B$)}
   
+  \begin{center}
+    \includegraphics[scale=0.5]{fig/RSA-encryption.pdf}
+  \end{center}
+  
+  \vfill
+  
+  
+  \textbf{Decryption by $B$}
+  
+   \begin{center}
+     \includegraphics[scale=0.5]{fig/RSA-decryption.pdf}
+   \end{center}
 \end{frame}
 
 
@@ -139,19 +166,27 @@ hyperref={pdfpagelabels=false}
   \frametitle{Self-signed Certificates}
 
   \begin{minipage}[t]{.45\linewidth}
-    \textbf{Sign}
+    \textbf{Signature}
+
+    \bigskip
+    
     
     \includegraphics[width=\textwidth]{self-signed-certificates.pdf}        
   \end{minipage}
   \hfill
   \begin{minipage}[t]{.45\linewidth}
-    \textbf{Verify}
+    \textbf{Verification}
+
+    \bigskip
     
     \includegraphics[width=\textwidth]{self-signed-certificates_check.pdf}    
   \end{minipage}
 
+  \vfill
+
+  
   \begin{itemize}
-  \item Problem: Man-in-the-Middle
+  \item Problem: Man-in-the-Middle (.../...)
   \end{itemize}
   
 \end{frame}
@@ -173,6 +208,41 @@ hyperref={pdfpagelabels=false}
   \end{itemize}
   
 \end{frame}
+
+\begin{frame}
+  \frametitle{Note: is Man-in-the-Middle practical?}
+
+  \textbf{TLDR; yes :)}
+  
+  Some possible practical attack (simplified\footnote{\tiny see
+    \url{https://resources.infosecinstitute.com/topic/man-in-the-middle-demystified/}}):
+
+  \begin{itemize}
+  \item Consider your victim's machine is \texttt{192.168.248.100} and
+    your router/gateway is \texttt{192.168.248.2}
+  \item Use
+    arpspoof\footnote{\tiny \url{https://en.wikipedia.org/wiki/ARP_spoofing}}
+    to modify the victim's and gateway cache to tell victim that your
+    are the gateway and gateway you are the victim.
+  \end{itemize}
+
+  \only<2>{\begin{itemize}
+    \item[$\longrightarrow$] you've set yourself as a proxy, reading
+      all traffic between router and victim.
+    \item While your at it, you can perform dns-spoofing, and pretend
+      you are the requested website.
+    \item Want to perform a ``pretend-to-be'' attack ?? it's not that
+      difficult: eg
+      {\tiny \url{https://www.social-engineer.org/framework/se-tools/computer-based/social-engineer-toolkit-set/}}
+  \end{itemize}
+  }
+
+  
+  \only<1>{\begin{center}
+      \includegraphics[scale=0.5]{fig/ARP-spoofing.pdf}
+    \end{center}}
+\end{frame}
+
 
 
 
@@ -200,6 +270,7 @@ hyperref={pdfpagelabels=false}
     \only<3>{\includegraphics[width=\textwidth,page=3]{fig/CA.pdf}}
     \only<4>{\includegraphics[width=\textwidth,page=4]{fig/CA.pdf}}
     \only<5>{\includegraphics[width=\textwidth,page=5]{fig/CA.pdf}}
+    \only<6>{\includegraphics[width=\textwidth,page=6]{fig/CA.pdf}}s
   \end{center}
 \end{frame}
 
@@ -359,7 +430,7 @@ source:      FRNIC
   \textbf{Confidentiality}
   \begin{itemize}
   \item Exchanged data is encrypted using \textbf{Symmetric-key cryptography}
-  \item Encryption keys are re-newed for every session, ie TLS uses \textbf{session keys}
+  \item Encryption keys are renewed for every session, ie TLS uses \textbf{session keys}
   \end{itemize}
 
   \textbf{Authenticity}
@@ -413,7 +484,7 @@ source:      FRNIC
 \begin{frame}
   \frametitle{Sending Data Through SSH}
   \begin{itemize}
-  \item Consider a TCP connexion between 2 machines
+  \item Consider a TCP connection between 2 machines
   \item SSH breaks data into a series of packets
   \end{itemize}
 
@@ -427,7 +498,7 @@ source:      FRNIC
     \item ECDH and Diffie–Hellman for key exchange.
     \item HMAC, AEAD and UMAC for MAC.
     \item AES (and deprecated RC4, 3DES, DES[29]) for symmetric encryption.
-    \item AES-GCM] and ChaCha20-Poly1305 for AEAD encryption.
+    \item AES-GCM and ChaCha20-Poly1305 for AEAD encryption.
     \item SHA (and deprecated MD5) for key fingerprint.
     \end{itemize}
   }
@@ -438,7 +509,7 @@ source:      FRNIC
   \begin{itemize}
   \item Channel multiplexing: You can open a number of different channels to send different
     data to/from different partners
-  \item Tunneling: on can redirect a (eg) TCP flow into an ssh tunnel 
+  \item Tunneling: one can redirect a (eg) TCP flow into an ssh tunnel 
   \item Distant shell
   \item File transfer
   \item Port redirection
@@ -473,7 +544,7 @@ source:      FRNIC
   \frametitle{OpenSSH}
   OpenSSH is a software suite that includes command-line utilities and daemons:
   \begin{itemize}
-  \item \texttt{scp} (replacement for \texttt{rcp}) to copy files through encryted channel
+  \item \texttt{scp} (replacement for \texttt{rcp}) to copy files through encrypted channel
   \item \texttt{sftp}, replacement for \texttt{ftp}
   \item \texttt{ssh} itself
   \item \texttt{ssh-agent} to hold keys and ease authentication
@@ -488,17 +559,17 @@ source:      FRNIC
 
   \begin{itemize}
   \item A and B want to talk
-  \item A (resp B) has a private key with server S, $k_{AS}$ (resp $k_{BS}$)
+  \item A (resp B) has \underline{symmetric} key with server S, $k_{AS}$ (resp $k_{BS}$)
   \end{itemize}
 
   
   \begin{center}
-    \includegraphics[width=0.9\textwidth]{needham-shcroeder-symm.pdf}
+    \includegraphics[width=0.8\textwidth]{needham-shcroeder-symm.pdf}
   \end{center}
 
   NB: Vulnerable to replay attack: 
   \begin{itemize}
-  \item Charlie gets an old compromised key $K_{AB}$ and pretends to be A by sending $\{K_{AB}, A\}_{K_{BS}}$ to B
+  \item Charlie gets an old compromised key $k_{AB}$ and pretends to be A by sending $\{k_{AB}, A\}_{k_{BS}}$ to B
   \end{itemize}
 \end{frame}
 
@@ -515,9 +586,9 @@ source:      FRNIC
 
 
 \begin{frame}
-  \frametitle{Needham-Schroeder Public-Key (Asymetric) Protocol}
+  \frametitle{Needham-Schroeder Public-Key (Asymmetric) Protocol}
 
-  A: $(k_{PA}, k_{SA})$    B: $(k_{PB}, k_{SB})$      S: $(k_{PS}, k_{SS})$  
+  A: $(k_{PubA}, k_{PrivA})$    B: $(k_{PubB}, k_{PrivB})$      S: $(k_{PubS}, k_{PrivS})$  
 
 
   \begin{center}
@@ -581,7 +652,7 @@ source:      FRNIC
     \begin{itemize}
     \item Today, cryptography is ahead of (civilian) cryptanalysis: that has not always been the case (and may not be the case in the future)
     \item Cryptography is a complex world
-    \item It's based on math!
+    \item It's based on math! Essentially ``
     \item The security of cryptographic algorithms relies on a great number of implementation details
     \item Cryptography is useful only if used ...
       \begin{itemize}
@@ -606,7 +677,7 @@ source:      FRNIC
 \begin{block}{Key management is the crux}
 	\begin{itemize}
 		\item Without the correct key, cryptography is useless!
-		\item With the correct key, cryptography only garanties the security of the connexion (not outsiders' truthfulness)\ldots)
+		\item With the correct key, cryptography only guaranties the security of the connection (not outsiders' truthfulness)\ldots)
 	\end{itemize}
 \end{block}
 
@@ -629,15 +700,6 @@ source:      FRNIC
 	
 	\url{http://xkcd.com/538/}
   \end{figure}
-\end{frame}
-
-
-
-\begin{frame}
-  \frametitle{VPNs}
-
-  Reprendre explications papiers @ Labo
-  
 \end{frame}
 
 \end{document}

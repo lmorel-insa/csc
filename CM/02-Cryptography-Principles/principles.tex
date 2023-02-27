@@ -678,6 +678,28 @@ void AES_Run_secure(void){
   \end{center}
 \end{frame}
 
+\begin{frame}
+  \frametitle{Diffie-Hellman Key Exchange - Comments}
+  
+  \begin{itemize}
+  \item $g^k \mbox{mod} n$ is the \textbf{modular exponentiation} and can be
+    computed quiet efficiently....
+ 
+  \item x and N and ``relatively prime'' iff they share no prime factors. 
+
+    
+  \item The strength of the scheme comes from the fact that
+    modular exponentiation is hard to invert:
+    \begin{itemize}
+    \item Assume you know $g^{N} mod p$, $g$ and $p$, can you guess $N$ ? 
+    \item For small values of $N$, it's doable to enumerate
+    \item For very big values it's not: this is known as the
+      \textbf{Discrete Logarithm Problem}
+    \end{itemize}
+  \item Security of cryptography is all about \textbf{One-way functions}
+  \end{itemize}
+\end{frame}
+
 
 
 
