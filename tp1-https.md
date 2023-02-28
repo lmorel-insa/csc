@@ -139,7 +139,7 @@ Sur l'AS target, vous disposez du serveur `target-dmz` sur lequel il faut déplo
 
 		# certbot certonly -n --apache -d www.target.milxc --server https://www.mica.milxc/acme/acme/directory
 
-* Configurer le matériel cryptographique de ce nouveau site dans le fichier `/etc/apache2/sites-enabled/default-ssl.conf` (vous devrez utiliser la chaîne complète de certificats depuis la racine, c'est-à-dire `fullchain.pem`, et la clé `privkey.pem`).
+	* Configurer le matériel cryptographique de ce nouveau site dans le fichier `/etc/apache2/sites-enabled/default-ssl.conf` (vous devrez utiliser la chaîne complète de certificats depuis la racine, c'est-à-dire `fullchain.pem`, et la clé `privkey.pem`). NB: il s'agît de modifier les variables `SSLCertificateFile` et `SSLCertificateKey` du fichier `default-ssl.conf`. 
 * Vous devez redémarrer le serveur apache2 après vos modifications : `service apache2 restart`
 
 Connectez-vous maintenant en HTTPS depuis `isp-a-home` (si vous aviez ajouté une exception de sécurité à un moment du TP, retirez-la avant). Tout doit se dérouler sans alerte, visualisez le certificat reçu. (Vous arrivez sur une page par défaut, le dokuwiki est accessible à l'URL `https://www.target.milxc/dokuwiki/`)
