@@ -7,7 +7,7 @@ from toolbox import *
 # You should tweak these values during the work
 nblogins = 10         # would be larger in real-life
 nbpasswords = 1000000 # would be larger in real-life
-nbiterations = 10     # 10000 is currently recommended, should be adapted to the usecase and changed with time (improvement of computation power), like a key size
+nbiterations = 10     # 200000 is currently recommended, should be adapted to the usecase and changed with time (improvement of computation power), like a key size
 
 
 ############################################
