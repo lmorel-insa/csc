@@ -27,8 +27,8 @@ Un peu de DNS
 Allez vraiment lire la ressource donnée dans le cours [Bortzmeyer](http://www.bortzmeyer.org/files/cours-dns-cnam-PRINT.pdf), pages 3 à 9 et 18 à 19, ainsi que [Sebsauvage](http://sebsauvage.net/comprendre/dns/) jusque "Dans ce cas, ils sont à la fois registry et registrar.". Les caches sont aussi illustrés ici ![@b0rk](https://wizardzines.com/comics/updating-dns/updating-dns.png).
 
 1. <details><summary>Qui héberge le contenu de la zone `'.fr'` ?</summary>L'AFNIC (un registry)</details>
-2. <details><summary>Qui vend le service d'enregistrer un `'.fr'` ?</summary>OVH, Gandi, etc. (des registrars)</details>
-3. <details><summary>Décrivez les interactions entre un possesseur de nom de domaine et un registry ?</summary>INSA Lyon cliente d'un registrar (Gandi par exemple), ce registrar en interaction avec un grand nombre de registries (Afnic par exemple, un registry par extension/TLD proposé (plus ou moins)) </details>
+2. <details><summary>Qui vend le service d'enregistrer un `'.fr'` ?</summary>OVH, Gandi, Renater, etc. (des registrars)</details>
+3. <details><summary>Décrivez les interactions entre un possesseur de nom de domaine et un registry ?</summary>INSA Lyon cliente d'un registrar (Renater par exemple), ce registrar en interaction avec un grand nombre de registries (Afnic par exemple, un registry par extension/TLD proposé (plus ou moins)) </details>
 3. <details><summary>Pour résoudre `www.insa-lyon.fr`, quels acteurs sont impliqués ?</summary>L'ICANN pour donner l'IP de `.fr`, l'AFNIC pour donner l'IP de `insa-lyon.fr`, l'INSA Lyon pour donner l'IP de `www.insa-lyon.fr`</details>
 
 
@@ -95,7 +95,7 @@ L'idée au centre de la toile de confiance (_web of trust_) est de signer les cl
 
 L'agrégation de toutes ces signatures permet de modéliser le graphe de confiance.
 
-Considérons ce graphe de confiance (chaque nom est l'alias d'une adresse mail) : ![pgp](td5-figures/pgp.png)
+Considérons ce graphe de confiance (chaque nom est l'alias d'une adresse mail) : ![pgp](td5-figures/pgp_1.png)
 
 
 Chaque arc allant de A vers B a 2 valeurs :
@@ -117,10 +117,10 @@ Composantes malicieuses
 
 Imaginons qu'un attaquant crée un grand nombre d'identités et signe une clé pour l'adresse mail `'Henry@fbi.gov'`.
 
-![pgp2](td5-figures/pgp2.png)
+![pgp2](td5-figures/pgp_2.png)
 
 1. <details><summary>Évaluez la récupération de la clé de Henry par Jesse</summary>Aucun changement, la recherche ne peut pas rentrer dans la composante malicieuse qui est inatteignable pour Jesse</details>
-2. <details><summary>Considérons maintenant que certaines personnes du graphe de confiance ne sont pas très regardantes sur leur validation et que Mike certifie William (score 3, gras). <img src="td5-figures/pgp3.png"> Évaluez la récupération de la clé de Henry par Saul</summary>Cette fois-ci, Saul va récupérer une mauvaise clé. Évidemment, il ne peut pas le savoir. Le chemin, pour cet exemple, est un peu long (Saul-Mike-William-Henry) et serait peut-être, en pratique, refusé, chaque saut dégradant le score. Mais c'est l'idée de ce risque.</details>
+2. <details><summary>Considérons maintenant que certaines personnes du graphe de confiance ne sont pas très regardantes sur leur validation et que Mike certifie William (score 3, gras). <img src="td5-figures/pgp_3.png"> Évaluez la récupération de la clé de Henry par Saul</summary>Cette fois-ci, Saul va récupérer une mauvaise clé. Évidemment, il ne peut pas le savoir. Le chemin, pour cet exemple, est un peu long (Saul-Mike-William-Henry) et serait peut-être, en pratique, refusé, chaque saut dégradant le score. Mais c'est l'idée de ce risque.</details>
 3. <details><summary>Quelles conclusions pouvons-nous en tirer sur la robustesse aux attaquants ?</summary>La robustesse aux attaquants est liée au bon usage de l'outil par chacun (ici, Mike n'a pas bien évalué la confiance à accorder à William, mais Saul est également en faute d'avoir lui-même accordé trop de confiance à Mike). L'usage est donc complexe, ce qui nuit à la sécurité finale.</details>
 
 
